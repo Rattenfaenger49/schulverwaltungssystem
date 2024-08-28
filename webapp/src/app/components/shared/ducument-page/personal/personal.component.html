@@ -1,0 +1,61 @@
+
+
+<div class="row">
+	<div class="col-auto">
+		<h2>Unterlagen Übersicht</h2>
+	</div>
+	<div class="col-auto">
+		<ys-upload-file
+				(fileUploaded)="fileUploaded($event)"
+				[fileTypes]="['pdf', 'doc', 'docx', 'png', 'jpg', 'jpeg']"
+				[metadata]="metadata()"
+		></ys-upload-file>
+	</div>
+</div>
+
+<hr class="my-2"/>
+
+
+@if (files().length > 0) {
+	<div class="uploaded-files mt-2">
+		<h2>Rechnungen</h2>
+		<table class="table">
+			<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Filename</th>
+				<th scope="col"></th>
+			</tr>
+			</thead>
+			@for (file of files(); let index = $index; track file.id) {
+				
+				<tbody>
+				<tr>
+					<th>{{ index + 1 }}</th>
+					<td>{{ file.fileName }}</td>
+					<td>
+						<mat-icon
+								(click)="downloadFile(file)"
+								class="ok-icon mx-2 overflow-visible"
+								tooltip="lade die Datei herunter"
+						>cloud_download
+						</mat-icon>
+						
+							<mat-icon
+									class="mx-2 cancel-icon overflow-visible"
+									tooltip="löschen"
+									(click)="deleteFile(file)">
+								delete
+							</mat-icon>
+					</td>
+				</tr>
+				</tbody>
+				
+			}
+		</table>
+	</div>
+} @else {
+	<div>
+		<h4>Keine Datein gefunden!</h4>
+	</div>
+}

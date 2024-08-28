@@ -1,0 +1,21 @@
+{
+  "appId": "school_system.app-v1",
+  "appName": "school_system",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/school_system_frontend",
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "https"
+  },
+  "cordova": {},
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    },
+    "CapacitorHttp": {
+      "enabled": true,
+      "allowCredentials": true
+    }
+  }
+}

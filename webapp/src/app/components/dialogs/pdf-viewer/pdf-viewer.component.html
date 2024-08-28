@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>PDF Viewer</h1>
+<div mat-dialog-content>
+	<ngx-extended-pdf-viewer
+			[base64Src]="data.pdfSrc"
+			[showDownloadButton]="true"
+			[showHandToolButton]="false"
+			[showFindButton]="true"
+			[enablePrint]="true"
+			[showDrawEditor]="false"
+			[showSecondaryToolbarButton]="false"
+			[showBookModeButton]="false"
+			[showTextEditor]="false"
+			[showSidebarButton]="false"
+			[showPrintButton]="true"
+			[showFindHighlightAll]="false"
+			[showHighlightEditor]="false"
+			[showOpenFileButton]="false"
+			[showStampEditor]="false"
+	></ngx-extended-pdf-viewer>
+</div>
+<div mat-dialog-actions align="end">
+	<button mat-button (click)="onClose()">Schließen</button>
+</div>
+

@@ -1,0 +1,103 @@
+<h1 mat-dialog-title>Modul Hinzufügen oder Bearbeiten</h1>
+
+<mat-dialog-content class="mat-typography">
+	
+	<form [formGroup]="form">
+		<div class="row">
+			<div class="col">
+				<mat-form-field appearance="outline" class="w-100">
+					<mat-label>Fach auswählen</mat-label>
+					<mat-select FormError
+								formControlName="modulType">
+						@for (option of Object.values(ModuleType); track option) {
+							<mat-option [value]="option">{{ option }}</mat-option>
+						}
+					</mat-select>
+				
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8">
+				<mat-form-field appearance="outline" class="w-100">
+					<mat-label>Wie viele Unterrichtseinheiten</mat-label>
+					<input FormError
+						   formControlName="units" matInput
+						   step="0.5"
+						   type="text">
+				
+				
+				</mat-form-field>
+			</div>
+			<div class="col-lg-4">
+				<mat-form-field appearance="outline" class="w-100">
+					<mat-label>Dauer</mat-label>
+					<mat-select FormError
+								formControlName="lessonDuration">
+						@for (i of LessonDurationKV; track i.key) {
+							<mat-option [value]="i.value">{{ i.value }}</mat-option>
+						}
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="row">
+			<h3>Einzelunterrichte</h3>
+			<div class="col">
+				<mat-checkbox color="primary"
+							  FormError
+							  formControlName="singleLessonAllowed">
+					Einzelunterricht
+				</mat-checkbox>
+				<mat-checkbox color="primary"
+							  FormError
+							  formControlName="groupLessonAllowed">
+					Groupunterricht
+				</mat-checkbox>
+			</div>
+		
+		</div>
+		<div class="row">
+			@if(form.value?.singleLessonAllowed){
+			<div class="col">
+				<mat-form-field appearance="outline" class="w-100">
+					<mat-label>Einzelkost</mat-label>
+					<input FormError
+						   formControlName="singleLessonCost" matInput
+						   type="text">
+				
+				
+				</mat-form-field>
+			</div>
+			}
+			@if(form.value?.groupLessonAllowed){
+				
+				<div class="col">
+				<mat-form-field appearance="outline" class="w-100">
+					<mat-label>Gruppenkost</mat-label>
+					<input FormError
+						   formControlName="groupLessonCost" matInput
+						   type="text">
+				
+				
+				</mat-form-field>
+			</div>
+			}
+		</div>
+		<div *ngIf="form.errors != null && isSubmitted() " class="is-invalid">
+			{{form.errors|json}}
+			<mat-error>{{ form.errors.atLeastOneLessonAllowed }}</mat-error>
+		</div>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button (click)="onClose()" mat-button matDialogClose>Cancel</button>
+	
+	<button
+			(click)="onSave()"
+			color="primary"
+			mat-button
+	>
+		Speichern
+	</button>
+</mat-dialog-actions>

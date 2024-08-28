@@ -1,0 +1,40 @@
+.file-input{
+    display: none;
+}
+/*
+.file-upload{
+    display: flex;
+    align-items: flex-end;
+}*/
+.upload-btn{
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+
+.file-list {
+    margin-top: 10px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.file-item span {
+    margin-right: 10px;
+}
+
+.progress-bar {
+    flex: 1;
+    background-color: #007bff;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 5px;
+    text-align: center;
+}

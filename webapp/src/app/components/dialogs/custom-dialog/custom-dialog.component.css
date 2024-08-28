@@ -1,0 +1,17 @@
+.dialog-container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+mat-dialog-actions {
+    margin-top: 20px;
+}
+
+mat-icon {
+    display: inline;
+    font-size: 40px;
+    color: #ff9800; /* Change color as needed */
+}

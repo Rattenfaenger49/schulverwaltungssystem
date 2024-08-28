@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+        <div class="canvas-body" >
+            <canvas #canvas [width]="canvasWidth" [height]="canvasHeight"></canvas>
+        </div>
+</div>
+<div mat-dialog-actions>
+    <div class="canvas-actions d-flex justify-content-end mt-3">
+        <button mat-button class="btn btn-primary" (click)="saveCanvas()">Speichern</button>
+        <button mat-button class="btn btn-danger mx-2" (click)="clearCanvas()">Löschen</button>
+        <button mat-button class="btn btn-danger mx-2" (click)="closeDialog()">Abbrechen</button>
+    </div>
+</div>

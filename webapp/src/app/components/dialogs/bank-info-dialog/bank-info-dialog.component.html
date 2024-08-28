@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>Bankverbindung</h2>
+@if (form) {
+	<mat-dialog-content class="mat-typography">
+		<form [formGroup]="form">
+			<div class="row mt-2">
+				<div class="form-group col-md-6">
+					<mat-form-field appearance="outline" class="w-100">
+						<mat-label>Bankname</mat-label>
+						<input matInput
+							   formControlName="bankName"
+							   FormError
+							   id="bankName"
+							   name="bankName"
+							   type="text"
+							   autocomplete="on">
+
+					</mat-form-field>
+				</div>
+				<div class="form-group col-md-6">
+					<mat-form-field appearance="outline" class="w-100">
+						<mat-label>Kontoinhaber</mat-label>
+						<input matInput
+							   formControlName="accountHolderName"
+							   FormError
+							   id="accountHolderName"
+							   name="accountHolderName"
+							   type="text"
+							   autocomplete="on">
+
+					</mat-form-field>
+				</div>
+				
+				<div class="form-group col-md-8">
+					<mat-form-field appearance="outline" class="w-100">
+						<mat-label>IBAN</mat-label>
+						<input matInput
+							   formControlName="iban"
+							   FormError
+							   id="iban"
+							   name="iban"
+							   type="text"
+							   autocomplete="on">
+
+					</mat-form-field>
+				</div>
+				<div class="form-group col-md-4">
+					<mat-form-field appearance="outline" class="w-100">
+						<mat-label>BIC</mat-label>
+						<input matInput
+							   formControlName="bic"
+							   FormError
+							   id="bic"
+							   name="bic"
+							   type="text"
+							   autocomplete="on">
+
+					</mat-form-field>
+				</div>
+			</div>
+		</form>
+	</mat-dialog-content>
+}
+<mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close>Abbrechen</button>
+	<button (click)="onSave()" cdkFocusInitial mat-button>Speichern</button>
+</mat-dialog-actions>

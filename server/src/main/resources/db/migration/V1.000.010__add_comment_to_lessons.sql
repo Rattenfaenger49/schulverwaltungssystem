@@ -1,0 +1,3 @@
+
+ALTER TABLE public.lessons ADD COLUMN comment VARCHAR(512) DEFAULT NULL;
+

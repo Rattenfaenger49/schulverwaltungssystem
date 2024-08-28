@@ -1,0 +1,192 @@
+<div>
+	<div class="row pt-4 d-flex">
+		<div class="">
+			<h1>Unternehmensprofil</h1>
+		</div>
+	
+	</div>
+	<form (ngSubmit)="onSubmit()" [formGroup]="form">
+		<mat-tab-group
+				mat-align-tabs="start"
+				mat-stretch-tabs="false">
+			<mat-tab label="Allgemeine Informationen">
+				
+				
+				<div class="row gx-1 w-100">
+					<!--
+								<div class="col-md-6 col-lg-4">
+					-->
+					<div class="col-md-6 col-lg-4 card form-floating mb-3 px-0">
+						<div class="card-header bg-primary text-white">
+							Unternehmensinformationen
+						</div>
+						<div class="card-body">
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="companyName" id="companyName"
+									   placeholder=""
+									   type="text"/>
+								<label class="form-label" for="companyName">Schulname</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="abbreviation" id="abbreviation"
+									   placeholder=""
+									   type="text"/>
+								<label class="form-label" for="abbreviation">Abkürzung</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="supportEmail" id="supportEmail"
+									   placeholder="" type="email"/>
+								<label class="form-label" for="supportEmail">Support Email-Adresse</label>
+								<mat-icon (click)="onSchowInfo('Diese E-Mail-Adresse wird automatisch in allen ausgehenden' +
+									   ' E-Mails verwendet, die zur Kommunikation über Anfragen oder Rückmeldungen dienen. ' +
+									    'Sie wird auch in Rechnungen und PDFs angezeigt, die Sie selbst in unserer App generieren. ' +
+									     'Sie dient als zentrale Kontaktadresse für alle Anfragen, Rückmeldungen und sonstige Kommunikation.')"
+										  class="info-icon"
+										  matSuffix>
+									info_outline
+								</mat-icon>
+							
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="supportPhone" id="supportPhone"
+									   placeholder="" type="tel"/>
+								<label class="form-label" for="supportPhone">Support Telefonnummer</label>
+								<mat-icon (click)="onSchowInfo('Diese Telefonnummer wird in den automatisierten E-Mails verwendet und dient ' +
+						'als Kontaktmöglichkeit für Supportanfragen. Sie wird auch in Rechnungen und PDFs angezeigt, die Sie in unserer App erstellen.')"
+										  class="info-icon"
+										  matSuffix>
+									info_outline
+								</mat-icon>
+							</div>
+						</div>
+					</div>
+					<div class=" col-md-6 col-lg-4 card form-floating mb-3 px-0">
+						<div class="card-header bg-primary text-white">
+							Adresse
+						</div>
+						<div class="card-body">
+							<div class="form-floating">
+								<ys-address
+										[isInvalid]="isInvalid()" [schowTitle]="false"
+										formControlName="address"></ys-address>
+							
+							</div>
+						</div>
+					</div>
+					<div class=" col-md-6 col-lg-4 card form-floating mb-3 px-0" formGroupName="bankData">
+						<div class="card-header bg-primary text-white">
+							Bankverbindung
+						</div>
+						<div class="card-body">
+							
+							<div class="form-floating mb-3">
+								<input FormError [customMessage]="'IBAN nicht gültig'"
+									   class="form-control" formControlName="bankName" id="bankName" placeholder=""
+									   type="text"/>
+								<label class="form-label" for="bankName">Bank</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="accountHolderName"
+									   id="accountHolderName"
+									   placeholder="" type="text"/>
+								<label class="form-label" for="accountHolderName">Kontoinhaber</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="bic" id="bic" placeholder=""
+									   type="text"/>
+								<label class="form-label" for="bic">BIC</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="iban" id="iban" placeholder=""
+									   type="text"/>
+								<label class="form-label" for="iban">IBAN</label>
+							</div>
+						
+						</div>
+					</div>
+					<div class=" col-md-6 col-lg-4 card form-floating mb-3 px-0">
+						<div class="card-header bg-primary text-white">
+							Geschäftsführer/in
+						</div>
+						<div class="card-body">
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="firstName" id="firstName"
+									   placeholder=""
+									   type="text"/>
+								<label class="form-label" for="firstName">Vorname</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="lastName" id="lastName"
+									   placeholder=""
+									   type="text"/>
+								<label class="form-label" for="lastName">Nachname</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="email" id="email" placeholder=""
+									   type="email"/>
+								<label class="form-label" for="email">Email-Adresse</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError class="form-control" formControlName="phone" id="phone" placeholder=""
+									   type="tel"/>
+								<label class="form-label" for="phone">Telefonnummer 1</label>
+							</div>
+						</div>
+					
+					</div>
+					
+					<!--	</div>-->
+					<!-- Weitere Informationen -->
+					<!--<div class="col-md-6 col-lg-4">-->
+					<div class=" col-md-6 col-lg-4 card form-floating mb-3 px-0">
+						<div class="card-header bg-primary text-white">
+							Weitere Informationen
+						</div>
+						<div class="card-body">
+							<div class="form-floating mb-3">
+								<input FormError
+									   [customMessage]="'URL muss mit https:// anfangen'" class="form-control"
+									   formControlName="website" id="website" placeholder="" type="url"/>
+								<label class="form-label" for="website">Website</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError
+									   [customMessage]="'Muss mit \'DE\' beginnen und 10 oder 11 Ziffern enthalten'"
+									   class="form-control" formControlName="taxNumber" id="taxNumber" placeholder=""
+									   type="text"/>
+								<label class="form-label" for="taxNumber">Steuer-ID</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input FormError [customMessage]="'URL muss mit https:// anfangen'" class="form-control"
+									   formControlName="privacyPolicyUrl" id="privacyPolicyUrl"
+									   placeholder="" type="url"/>
+								<label class="form-label" for="privacyPolicyUrl">Privacy Policy URL</label>
+							</div>
+							<div class="form-floating mb-3">
+						<textarea class="form-control" formControlName="extras" id="extras" placeholder=""
+								  rows="3"></textarea>
+								<label class="form-label" for="extras">Extras</label>
+							</div>
+							<div class="mb-3">
+								<p>Logo</p>
+								<ys-image-upload [(image)]="logo"></ys-image-upload>
+							</div>
+						</div>
+					</div>
+				</div>
+			</mat-tab>
+			<mat-tab label="Einstellungen">
+				<ys-preferences
+						[isInvalid]="isInvalid()"
+						formControlName="preferences"
+				></ys-preferences>
+			
+			</mat-tab>
+		</mat-tab-group>
+		<!--	</div>-->
+		<div class="col text-end">
+			<button class="btn btn-primary mt-5" type="submit">Speichern</button>
+		</div>
+	</form>
+</div>
+

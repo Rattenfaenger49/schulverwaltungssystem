@@ -1,0 +1,34 @@
+/* styles.css */
+
+.status-active {
+  background-color: green !important;
+  color: white !important;
+}
+
+.status-inactive {
+  background-color: gray !important;
+  color: white !important;
+}
+
+.status-terminated {
+  background-color: red !important;
+  color: white !important;
+}
+
+.status-blocked {
+  background-color: orange !important;
+  color: white !important;
+}
+
+.status-in-progress {
+  background-color: blue !important;
+  color: white !important;
+}
+
+.form-floating > .floating-label-bg-transparent{
+  color: white;
+}
+
+.form-floating > .floating-label-bg-transparent::after {
+  background-color: transparent !important; /* Override the background color */
+}

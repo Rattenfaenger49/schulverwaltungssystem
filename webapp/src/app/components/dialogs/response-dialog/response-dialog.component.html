@@ -1,0 +1,50 @@
+
+<div [@zoom]="zoomAnimation"  class="dialog-container">
+
+  <!--<h1 mat-dialog-title>{{ this.data.response.status.toUpperCase() | uppercase }}</h1> -->
+  <mat-dialog-content class="container">
+    <div class="container">
+      <div class="row">
+
+          @if (this.data().success) {
+            <div class="success-container">
+              <div class="success-checkmark">
+                <div class="check-icon">
+                  <span class="icon-line line-tip"></span>
+                  <span class="icon-line line-long"></span>
+                  <div class="icon-circle"></div>
+                  <div class="icon-fix"></div>
+                </div>
+              </div>
+              <p  class="success-text">Erfolgreich!</p>
+            </div>
+          }
+          @else{
+            <div class="container">
+              <div>
+                <div class="circle-border"></div>
+                <div class="circle">
+                  <div class="error"></div>
+                </div>
+              </div>
+              <p  class="fail-text">Fehler!</p>
+            </div>
+          }
+
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <p>{{ data().response?.message ? data().response.message :
+				  this.data().success ? '': 'Etwas ist schiefgelaufen'}}</p>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button color="primary" (click)="close()">Weiter</button>
+  </mat-dialog-actions>
+</div>
+
+
+

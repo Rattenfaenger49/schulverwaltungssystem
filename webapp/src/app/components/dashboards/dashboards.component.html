@@ -1,0 +1,11 @@
+<!--
+TODO implement a responve nice design for the dashboards all users
+-->
+
+@if(auth.isAdmin()){
+    <ys-admin-dashboard></ys-admin-dashboard>
+} @else if (auth.isTeacher()){
+    <ys-teacher-dashboard></ys-teacher-dashboard>
+} @else if (auth.isStudent()){
+    <ys-student-dashboard></ys-student-dashboard>
+}

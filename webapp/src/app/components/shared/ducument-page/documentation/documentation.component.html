@@ -1,0 +1,38 @@
+<h2>Dokumentation Übersicht</h2>
+<form [formGroup]="form">
+	<div class="row">
+		
+		<div class="col-md-4">
+			<mat-form-field appearance="outline" class="w-100">
+				<mat-date-range-input [rangePicker]="picker">
+					<input matStartDate placeholder="Start date" formControlName="start">
+					<input matEndDate placeholder="End date" formControlName="end">
+				</mat-date-range-input>
+				<mat-hint>DD/MM/YYYY - DD/MM/YYYY</mat-hint>
+				<mat-datepicker-toggle [for]="picker"  matSuffix>
+				</mat-datepicker-toggle>
+				<mat-date-range-picker touchUi="true" #picker></mat-date-range-picker>
+			</mat-form-field>
+		</div>
+		<div class="form-group col-md-4">
+			<mat-form-field appearance="outline" class="w-100">
+				<mat-select FormError
+							formControlName="contractType"
+							id="contractType">
+					@for (contract of Object.values(ContractType); track contract) {
+						<mat-option [value]="contract">
+							{{ contract }}
+						</mat-option>
+					}
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="col">
+			<button (click)="createPdf()" color="primary" extended mat-fab>
+				<span class="material-symbols-outlined">new_window</span>
+				<span class="btn-text" >Erstelle PDF</span>
+			</button>
+		</div>
+		
+	</div>
+</form>

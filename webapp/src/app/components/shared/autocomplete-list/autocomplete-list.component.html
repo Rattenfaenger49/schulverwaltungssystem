@@ -1,0 +1,19 @@
+<mat-form-field  class="w-100" appearance="outline">
+  <mat-label>{{type()}}</mat-label>
+  <input
+    type="text"
+    [placeholder]="type()"
+    [attr.aria-label]="type()"
+    matInput
+    [matAutocomplete]="auto"
+    (input)="filterInputs($event.target.value)">
+
+    <mat-autocomplete #auto="matAutocomplete"  >
+      @for (element of list$ | async; track element) {
+        <mat-option
+          [value]="element!.firstName + ' ' + element!.lastName"  (click)="selectedElement(element)">
+          {{element.firstName}} {{element.lastName}}
+        </mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>

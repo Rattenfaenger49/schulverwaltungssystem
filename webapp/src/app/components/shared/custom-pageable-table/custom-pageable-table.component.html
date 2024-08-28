@@ -1,0 +1,92 @@
+@if (data()) {
+	<div class="f-size-sm-75" style="max-height: 600px;overflow-x: auto;">
+		<table class="table table-responsive">
+			<thead>
+			<tr>
+				<th scope="col">#</th>
+				@for (header of getHeaders(); track header) {
+					<th scope="col">{{ header.translation }}
+						<span class="pointer-cursor" (click)="onSortChange(header.name)">
+						@if (header.name === sorting().key) {
+							@if (sorting().sortDirection === 'asc') {
+								<i class="bi bi-sort-alpha-down"></i>
+							} @else {
+								<i class="bi bi-sort-alpha-up"></i>
+							}
+						} @else if (!isNotSortable().includes(header.name)) {
+							<i class="bi bi-arrow-down-up"></i> <!-- Placeholder icon -->
+						}
+						</span>
+					</th>
+				}
+				<th>Bearbeiten</th>
+			</tr>
+			</thead>
+			@if (data().content) {
+				<tbody >
+					@for (content of data().content | paginate:
+							{
+								itemsPerPage: data()?.size,
+								currentPage: data()!.number + 1,
+								totalItems: data()?.totalElements
+							}; track content; let i = $index) {
+						<tr>
+							<th scope="row"> {{ (i + 1) + (data().number * data()?.size) }}</th>
+							@for (header of getHeaders(); track header) {
+								@if (header.name === 'students') {
+									<td>
+										@for (user of splitContent(content[header.name]) |renderContent; track user) {
+											<p class="mt-0 mb-0">{{ user }}</p>
+										}
+									</td>
+								} @else if (header.name === 'student') {
+									<td> {{ content[header.name].firstName }} {{ content[header.name].lastName }}</td>
+								} @else if (header.name === 'startAt' || header.name === 'endAt') {
+									<td> {{ content[header.name] | date: 'short' }} Uhr</td>
+								} @else {
+									<td>{{ content[header.name] }}</td>
+								}
+							}
+							<td>
+								@if(baseUrl() != ''){
+									
+									<a class="pointer-cursor" [routerLink]="[baseUrl(), content.id]" mat-list-item (click)="onRowClicked(content)">
+										<mat-icon>edit</mat-icon>
+									</a>
+								}@else{
+									<a class="pointer-cursor"  mat-list-item (click)="onRowClicked(content)">
+										<mat-icon>edit</mat-icon>
+									</a>
+								}
+			
+							</td>
+						</tr>
+					}
+				</tbody>
+			} @else {
+				<p>Keine Inhalte</p>
+			}
+		</table>
+	</div>
+	<div class="has-text-centered row">
+		<div class="col">
+			<span><strong>Von: {{ data().totalElements }}</strong></span>
+		</div>
+		<div class="col-auto ml-auto">
+			<pagination-controls
+					[responsive]="true"
+					[nextLabel]="''"
+					[previousLabel]="''"
+					[autoHide]="true"
+					(pageChange)="changePage($event -1)"></pagination-controls>
+		</div>
+	
+	
+	</div>
+} @else {
+	<div class="has-text-centered d-flex justify-content-center text-center">
+		<h3 class="title">Kein Inhalt</h3>
+	</div>
+}
+
+

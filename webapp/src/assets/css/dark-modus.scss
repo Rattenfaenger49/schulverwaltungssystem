@@ -1,0 +1,128 @@
+
+:root {
+  --mat-sidenav-content-background-color: #ffffff;
+  --primary-color: #3f51b5;
+  --accent-color: #e91e63;
+  --warn-color: #f44336;
+  --background-color: #fafafa;
+  --foreground-color: #000000;
+  --card-background-color: #ffffff;
+  --table-background-color: #ffffff;
+  --mat-sidenav-container-background-color: #ffffff;
+  --table-header-background-color: #f5f5f5;
+
+  .mat-datepicker-content-container {
+    background-color: #ffffff;
+
+  }
+
+  .mat-mdc-tab.mdc-tab--active:hover .mdc-tab__text-label {
+  }
+}
+
+th, tr, td, th {
+  background-color: var(--table-background-color) !important;
+  color: var(--foreground-color) !important;
+
+  .mat-header-row {
+    background-color: var(--table-header-background-color) !important;
+  }
+
+  .mat-cell, .mat-header-cell {
+    color: var(--foreground-color) !important;
+  }
+}
+
+.card {
+  background-color: var(--card-background-color) !important;
+  color: var(--foreground-color) !important;
+}
+// start dark-theme  //
+
+body.dark-theme {
+
+
+  background-color: #303030;
+  --mat-sidenav-content-background-color: #121212;
+
+  --primary-color: #5814df;
+  --accent-color: #f48fb1;
+  --warn-color: #ef9a9a;
+  --background-color: #303030;
+  --mdc-dialog-container-color: #303030;
+  --foreground-color: #ffffff;
+  --card-background-color: #424242;
+  --table-background-color: #424242;
+  --table-header-background-color: #616161;
+  --mat-sidenav-content-text-color: #ffffff;
+  --mat-tab-header-inactive-hover-label-text-color: #ffffff;
+  --mdc-outlined-text-field-input-text-color: #ffffff;
+  --mdc-outlined-text-field-input-text-placeholder-color: #ffffff;
+  --mat-select-enabled-arrow-color: #ffffff;
+  --mdc-dialog-subhead-color: #ffffff;
+  --mat-datepicker-calendar-date-text-color: #ffffff;
+  --mat-datepicker-calendar-date-outline-color: #ffffff;
+  --mdc-outlined-text-field-disabled-input-text-color: #ffffff;
+  --bs-heading-color: #ffffff;
+
+  --mat-sidenav-container-background-color: #616161;
+
+  .mat-mdc-option .mdc-list-item__primary-text {
+    color: #121212;
+  }
+
+  .mat-datepicker-content-container, .mat-expansion-panel, .cal-scheduler-time-segment {
+    background-color: #616161;
+
+  }
+
+  .mat-mdc-tab.mdc-tab--active:hover .mdc-tab__text-label,
+  .mdc-list-item__primary-text, .mat-expansion-panel,
+  .mdc-tab__text-label, .mat-mdc-select-min-line, mat-label,
+  .mdc-text-field__input, .mat-datepicker-toggle-default-icon,
+  .mat-mdc-form-field-required-marker, mat-icon, .mdc-label,
+  .mat-drawer-container, .mdc-button__label, .mat-datepicker-input, .mdc-text-field__input, .mdc-text-field__input::placeholder {
+    color: #ffffff;
+
+  }
+
+  .mat-mdc-input-element, .mat-datepicker-input, .mat-mdc-form-field-input-control, .mdc-text-field__input, .cdk-text-field-autofill-monitored {
+    color: #ffffff;
+  }
+
+  .mdc-tab__text-label:hover {
+    color: var(--primary-color);
+  }
+
+  mat-dialog-container {
+    background-color: #424242;
+  }
+
+  color: #ffffff;
+
+  /* Hover styles for individual elements */
+
+  .mat-mdc-tab.mdc-tab--active:hover .mdc-tab__text-label {
+    color: #ff0000; /* Change this to the desired hover color */
+  }
+
+  .cal-scheduler-event {
+    color: #1a1d20;
+  }
+
+  mat-card {
+    background-color: var(--primary-color);
+
+    mat-card-actions {
+      .mdc-button {
+        background-color: #424242;
+      }
+    }
+  }
+  .form-floating{
+    label{
+      color: #424242 !important;
+    }
+  }
+}
+

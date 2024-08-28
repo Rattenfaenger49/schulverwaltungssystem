@@ -1,0 +1,92 @@
+<div>
+	<div class="row d-flex justify-content-between">
+		<div class="col">
+			<h1>Verträge</h1>
+		</div>
+		<div class="col-4 col mb-3 d-flex justify-content-end">
+			<ys-view-switcher
+					[(view)]="view"
+			></ys-view-switcher>
+		</div>
+	</div>
+</div>
+<div class="row gx-1">
+	<div class="col-4 col-sm-2  form-floating">
+		
+		<select (change)="filterChange()" [(ngModel)]="contractStatus"
+				class="form-select"
+				id="contract-status">
+			@for (vStatus of ContractStatusList; track vStatus.key){
+				<option [value]="vStatus.key">{{ vStatus.value }}</option>
+			}
+		</select>
+		<label for="contract-status">Vertragsstatus</label>
+	</div>
+	<div class="col-4 col-sm-2 mb-2 form-floating">
+		
+		<select (change)="filterChange()" [(ngModel)]="contractType"
+				class="form-select"
+				id="contract-type">
+			@for (vStatus of ContractTypeList; track vStatus.key){
+				<option [value]="vStatus.key">{{ vStatus.value }}</option>
+			}
+		</select>
+		<label for="contract-type">Vertragstype</label>
+	
+	</div>
+	@if(view === 'card'){
+		<div class="col-4 col-sm-2 form-floating mb-2">
+			<select (ngModelChange)="onCardSortChange()" [(ngModel)]="sortCriteria" class="form-select"
+					id="sortOptions">
+				<option value="id">Kein</option>
+				@for (key of sortableKeys(); track key) {
+					<option [value]="key.name">{{ key.translation }}</option>
+				}
+				<!-- Add more sorting options as needed -->
+			</select>
+			<label for="sortOptions">Sortieren</label>
+		
+		</div>
+		<div class="col-4 col-sm-2 form-floating mb-2">
+			<select (ngModelChange)="onCardSortChange()" [(ngModel)]="sortDirection" class="form-select"
+					id="sortDirection">
+				<option value="asc">Aufsteigend</option>
+				<option value="desc">Absteigend</option>
+			</select>
+			<label for="sortDirection">Sortierart</label>
+		</div>
+	}
+	<div class=" col col-md-4 mb-3">
+		<ys-search-input
+				(searchChange)="changeSearch($event)"
+				[inputText]="searchInput()"
+		></ys-search-input>
+	</div>
+	
+</div>
+@if (data()) {
+	
+	@if (view === 'table') {
+		<ys-custom-pageable-table
+				[data]="data()"
+				[baseUrl]="'/contracts'"
+				[filter]="filteredKeys"
+				[sorting]="sorting()"
+				(sortChange)="onTableSortChange($event)"
+				(rowClicked)="onRowClicked($event)"
+				(pageNumberChange)="changePage($event)"
+		></ys-custom-pageable-table>
+	} @else {
+		<ys-pageable-cards-list
+				[data]="data()"
+				[baseUrl]="'/contracts'"
+				[filter]="filteredKeys"
+				(rowClicked)="onRowClicked($event)"
+				(pageNumberChange)="changePage($event)"
+		></ys-pageable-cards-list>
+	}
+	
+	
+}
+
+

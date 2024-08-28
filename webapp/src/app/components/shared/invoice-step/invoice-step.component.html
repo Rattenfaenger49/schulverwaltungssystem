@@ -1,0 +1,21 @@
+<ng-container [ngSwitch]="invoice().invoiceStatus">
+	<ng-container *ngSwitchCase="InvoiceStatus.PENDING_APPROVAL">
+		<mat-icon  class="ok-icon" (click)="onChangeStep(InvoiceStatus.UNDER_REVIEW)" matTooltip="Freigeben (Unterschreiben)">assignment_turned_in</mat-icon>
+	</ng-container>
+	<ng-container *ngSwitchCase="InvoiceStatus.UNDER_REVIEW">
+		<mat-icon class="ok-icon" (click)="onChangeStep(InvoiceStatus.ACCEPTED)" matTooltip="Akzeptiere">check</mat-icon>
+		<mat-icon class="cancel-icon" (click)="onChangeStep(InvoiceStatus.REJECTED)" matTooltip="Ablehnen">cancel</mat-icon>
+	</ng-container>
+	<ng-container *ngSwitchCase="InvoiceStatus.ACCEPTED">
+		<mat-icon class="ok-icon" (click)="onChangeStep(InvoiceStatus.PAID)" matTooltip="Haben Sie die Rechnung bezahlt?">payment</mat-icon>
+	</ng-container>
+	<ng-container *ngSwitchCase="InvoiceStatus.REJECTED">
+		<mat-icon matTooltip="Rechnung wurde abgelehnt">cancel</mat-icon>
+	</ng-container>
+	<ng-container *ngSwitchCase="InvoiceStatus.PAID">
+		<mat-icon matTooltip="Rechnung ist bezahlt :-)">paid</mat-icon>
+	</ng-container>
+	<ng-container *ngSwitchDefault>
+		<!-- Handle unknown status -->
+	</ng-container>
+</ng-container>

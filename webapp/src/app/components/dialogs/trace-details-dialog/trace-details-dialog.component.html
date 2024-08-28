@@ -1,0 +1,43 @@
+
+	<h2 mat-dialog-title>HTTP Trace Details</h2>
+	
+	<mat-dialog-content class="mat-typography">
+		<ul mat-tab-group>
+			<li mat-tab>
+				<a mat-tab-label>Request</a>
+				<div class="tab-content">
+					<p><strong>Time Stamp</strong> {{ trace()?.timestamp | date:'medium' }}</p>
+					<p><strong>Time Taken(ms)</strong> {{ trace()?.timeTaken }}</p>
+					<p><strong>Request Method</strong> {{ trace()?.request.method }}</p>
+					<p><strong>Remote Address</strong> {{ trace()?.request.remoteAddress }}</p>
+					<p><strong>URI</strong> {{ trace()?.request.uri }}</p>
+					<p><strong>Origin</strong> {{ trace()?.request.headers['origin'] }}</p>
+					<p><strong>User Agent (Web Client)</strong> {{ trace()?.request.headers['user-agent'] }}</p>
+				</div>
+			</li>
+			<li mat-tab>
+				<a mat-tab-label>Response</a>
+				<div class="tab-content">
+					<dl>
+						<dt>Status</dt>
+						<dd>{{ trace()?.response.status }}</dd>
+					</dl>
+					<dl>
+						<dt>Date</dt>
+						<dd>{{ trace()?.response.headers['Date'] }}</dd>
+					</dl>
+					<dl>
+						<dt>Content Type</dt>
+						<dd>{{ trace()?.response.headers['Content-Type'] }}</dd>
+					</dl>
+					<p><strong>Server Allowed
+						Origins</strong> {{ trace()?.response.headers['Access-Control-Allow-Origin'] }}</p>
+				</div>
+			</li>
+		</ul>
+	</mat-dialog-content>
+	
+	<mat-dialog-actions>
+		<button (click)="closeDialog()" mat-button>Close</button>
+	</mat-dialog-actions>
+

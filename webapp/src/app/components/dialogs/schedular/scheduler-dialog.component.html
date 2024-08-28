@@ -1,0 +1,84 @@
+<div class="container">
+  <h2 mat-dialog-title>{{ title }}</h2>
+
+  <mat-dialog-content class="pt-2" [formGroup]="form">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput type="text" id="title" formControlName="title" />
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Beschreibung</mat-label>
+      <input matInput id="content" type="content" formControlName="content"  />
+    </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Von</mat-label>
+
+          <input matInput [ngxMatDatetimePicker]="pickerStart"
+                 placeholder="Von:"
+                 formControlName="startAt"
+                  >
+          <mat-datepicker-toggle matSuffix [for]="pickerStart" disabled="false">
+          </mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #pickerStart
+                                   [showSpinners]="true"
+                                   [showSeconds]="false"
+                                   [stepSecond]="1"
+                                   [touchUi]="true"
+                                   color="primary"
+                                   disabled="false"
+          >
+          </ngx-mat-datetime-picker>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Bis</mat-label>
+          <input matInput [ngxMatDatetimePicker]="pickerEnd"
+                 placeholder="Bis:"
+                 formControlName="endAt"
+                  >
+          <mat-datepicker-toggle matSuffix [for]="pickerEnd" disabled="false">
+          </mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #pickerEnd
+                                   [showSpinners]="true"
+                                   [showSeconds]="false"
+                                   [stepHour]="1"
+                                   [touchUi]="true"
+                                   color="primary"
+                                   disabled="false"
+          >
+          </ngx-mat-datetime-picker>
+      </mat-form-field>
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Vertragstyp</mat-label>
+      <mat-select
+        id="contractType"
+        formControlName="contractType"
+        FormError
+      >
+		  @for(option of Object.values(ContractType); track option){
+			  <mat-option [value]="option">{{ option }}</mat-option>
+		  }
+
+      </mat-select>
+    </mat-form-field>
+	  
+	  <div *ngIf="form.errors != null && isSubmitted()" class="is-invalid">
+          <mat-error>Datum darf nicht vor dem Beginn enden!</mat-error>
+      </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+
+    <button mat-button mat-dialog-close class="btn mr-1" (click)="close()">
+      Nein
+    </button>
+    <button
+      mat-button
+
+      class="btn mr-1"
+      (click)="save()"
+    >
+      Speichern
+    </button>
+  </mat-dialog-actions>
+</div>

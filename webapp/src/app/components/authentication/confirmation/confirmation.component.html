@@ -1,0 +1,31 @@
+@if (!setPassowrd) {
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            @if (!verificationSuccess && verificationError) {
+              <div class="alert alert-warning" role="alert">
+                <strong>Error</strong> {{ verificationError }}
+              </div>
+              @if (verificationError === "Token ist abgelaufen!" && emailNotSend) {
+                <div>
+                  <span>Verifizierungsmail mit neuem Token senden</span>
+                  <a type="button" (click)="sendNewToken()" class="icon-link">
+                    <span>
+                      <mat-icon>email</mat-icon>
+                    </span>
+                  </a>
+                </div>
+              } @else {
+                <span class="">{{ msg }}</span>
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <ys-update-password></ys-update-password>
+}

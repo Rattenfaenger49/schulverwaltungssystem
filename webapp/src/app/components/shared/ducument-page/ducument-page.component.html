@@ -1,0 +1,21 @@
+<mat-tab-group [selectedIndex]="params()['n-tab']"
+			   (selectedIndexChange)="urlParamService.onTabChange('n-tab',$event)"
+			   [color]="'warn'" mat-stretch-tabs="false">
+	
+	<mat-tab  label="Dokumentation">
+		<ng-template matTabContent>
+			<ys-documentation [user]="user()"></ys-documentation>
+		</ng-template>
+	</mat-tab>
+	<mat-tab label="Rechnungen">
+		<ng-template matTabContent>
+			<ys-invoice [user]="user()" [userType]="userType()"></ys-invoice>
+		</ng-template>
+	</mat-tab>
+	<mat-tab label="Persönlich">
+		<ng-template matTabContent>
+			<ys-personal [user]="user()"></ys-personal>
+		
+		</ng-template>
+	</mat-tab>
+</mat-tab-group>

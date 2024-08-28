@@ -1,0 +1,8 @@
+export enum Status{
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE',
+    TERMINATED = 'TERMINATED',
+    BLOCKED = 'BLOCKED',
+    IN_PROGRESS = 'IN_PROGRESS',
+
+}

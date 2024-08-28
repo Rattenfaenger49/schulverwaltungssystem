@@ -1,0 +1,251 @@
+<!--
+TODO put Elternteil over the Address or Under it
+TODO the Comment on the right maybe with some btn functions or extras
+-->
+<mat-tab-group (selectedIndexChange)="urlParamService.onTabChange('tab', $event)"
+			   [selectedIndex]="this.params()['tab']"
+			   mat-align-tabs="start"
+			   mat-stretch-tabs="false">
+	<mat-tab label="Stammdaten">
+		<ng-template matTabContent>
+			
+			@if (student()?.markedForDeletion) {
+				<div id="alert"
+					 class="alert alert-warning alert-dismissible p-0 d-flex"
+					 role="alert">
+					<div
+							class="alert-icon p-3"
+							style="background-color: rgba(0, 0, 0, 0.05)"
+					>
+						<mat-icon>warning</mat-icon>
+					</div>
+					<div class="alert-message p-2">
+						<span style="font-size: 1rem;"><strong>Hinweis</strong></span> Der Account wird zum Löschen
+						markiert.
+						<br> Um das Löschen rückgängig zu machen, klicken Sie auf das <strong
+							class="pointer-cursor " (click)="undoDelete()">Löschen Widerrufen</strong>.
+					</div>
+				</div>
+			}
+			<div class="mt-0">
+				<div class="row d-flex">
+					<div class="col">
+						<h1>
+							Schüler Überblick
+							@if (auth.isAdmin && !student()?.markedForDeletion) {
+								<mat-icon class="cancel-icon pt-1" (click)="delete()">
+									delete
+								</mat-icon>
+							}
+							<mat-chip-set aria-label="Fish selection">
+								<mat-chip>
+									<button (click)="openBankDialog()" color="primary" mat-button type="button">IBAN
+									</button>
+								</mat-chip>
+							</mat-chip-set>
+						</h1>
+						@if (!student()?.verified) {
+							<div>
+								<span>Verifizierungsmail erneut senden!</span>
+								<a type="button" (click)="resendConfirmationEmail()" class="icon-link">
+									<span>
+									  <mat-icon>email</mat-icon>
+									</span>
+								</a>
+							</div>
+						}
+					</div>
+					<div
+							class="col d-flex justify-content-lg-end justify-content-center align-items-lg-end align-items-center"
+					>
+						<img
+								alt="avatar"
+								class="rounded-circle img-fluid mb-3 mb-lg-0"
+								src="assets/img/user_blank.png"
+								style="width: 100px"
+						/>
+					</div>
+				</div>
+				<form (ngSubmit)="onSubmit()" [formGroup]="form">
+					<div class="row">
+						<div class="col-md-6 col-xl-4">
+							<h2>Persönliche Angaben</h2>
+							<div class="form-floating mb-2">
+								<select
+										FormError
+										class="form-select"
+										formControlName="gender"
+										id="gender"
+								>
+									<option value="">---</option>
+									<option value="männlich">männlich</option>
+									<option value="weiblich">weiblich</option>
+								</select>
+								<label class="col-form-label" for="gender">Geschlecht</label>
+							
+							</div>
+							<div class="form-floating mb-2">
+								<input
+										FormError
+										class="form-control"
+										placeholder=""
+										formControlName="firstName"
+										id="firstName"
+										type="text"
+								/>
+								<label class="col-form-label" for="firstName">Vorname</label>
+							
+							</div>
+							<div class="form-floating mb-2">
+								<input
+										FormError
+										class="form-control"
+										placeholder=""
+										formControlName="lastName"
+										id="lastName"
+										type="text"
+								/>
+								<label class="col-form-label" for="lastName">Nachname</label>
+							
+							</div>
+							<div class="form-floating mb-2">
+								<input
+										FormError
+										class="form-control"
+										placeholder=""
+										formControlName="birthdate"
+										id="birthdate"
+										type="date"
+								/>
+								<label class="col-form-label" for="birthdate">Geburtsdatum</label>
+							
+							</div>
+							<div class="form-floating mb-2">
+								<input
+										FormError
+										class="form-control"
+										placeholder=""
+										formControlName="phoneNumber"
+										id="phoneNumber"
+										type="tel"
+								/>
+								<label class="col-form-label" for="phoneNumber">Telefonnummer</label>
+							
+							</div>
+							<div class="form-floating mb-2">
+								<input
+										FormError
+										class="form-control"
+										placeholder=""
+										formControlName="username"
+										id="username"
+										type="email"
+								/>
+								<label class="col-form-label" for="username">Email</label>
+							
+							</div>
+							<div class="form-floating mb-2">
+								<input
+										class="form-control"
+										placeholder=""
+										formControlName="level"
+										id="level"
+										type="text"
+								/>
+								<label class="col-form-label" for="level">Stufe</label>
+							
+							</div>
+						</div>
+						<div class="col-md-6 col-xl-4">
+							<ys-address
+									[isInvalid]="isInvalid()"
+									formControlName="address"
+							></ys-address>
+							@if (!auth.isStudent()) {
+								<div class="row gx-1">
+									<div class="form-floating my-2">
+									<textarea
+											matInput
+											oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+											class="form-control"
+											formControlName="comment"
+											placeholder="Kommentar"
+											maxlength="512"
+											id="comment"
+											FormError
+									></textarea>
+										<label for="comment">Kommentar</label>
+									
+									</div>
+								</div>
+							}
+						</div>
+						<div class="col-md-6 col-xl-4">
+							<ys-parent [isInvalid]="isInvalid()"
+									   [(isContactDisabled)]="isContactDisabled"
+									   formControlName="parent"></ys-parent>
+						</div>
+					</div>
+					
+					<div class="col text-end mt-4 mb-4">
+						<button [tooltip]="form.pristine ? '' : 'Data sind Aktuell'"
+								class="btn btn-primary"
+								type="submit"
+						>
+							Speichern
+						</button>
+					</div>
+				</form>
+			</div>
+		</ng-template>
+	</mat-tab>
+	<mat-tab label="Verträge">
+		<ng-template matTabContent>
+			<mat-tab-group (selectedIndexChange)="urlParamService.onTabChange('n-tab',$event)"
+						   [color]="'warn'"
+						   [selectedIndex]="params()['n-tab']"
+						   mat-stretch-tabs="false">
+				@for (contract of form.value?.contracts; track contract.id) {
+					<mat-tab [label]="contract.contractType">
+						<ng-template matTabContent>
+							<ys-contract [contract]="contract"
+										 (contractDeleted)="removeCotract($event)"
+										 (contractChanged)="updateContract($event)"></ys-contract>
+						</ng-template>
+					</mat-tab>
+				}
+				@if (auth.isAdmin) {
+					<mat-tab>
+						<ng-template mat-tab-label>
+							<mat-icon>add</mat-icon>
+						</ng-template>
+						<ys-contract
+								[student]="form.value"
+								(contractChanged)="updateContract($event)"></ys-contract>
+					</mat-tab>
+				}
+			</mat-tab-group>
+		</ng-template>
+	</mat-tab>
+	<mat-tab class="pb-5" label="Unterrichte">
+		<ng-template matTabContent>
+			<ys-lessons-list [user]="form.value"></ys-lessons-list>
+		
+		</ng-template>
+	</mat-tab>
+	<mat-tab *ngIf="!auth.isTeacher()" class="pb-5" label="Lehrer">
+		<ng-template matTabContent>
+			<ys-custom-list-table
+					(rowClicked)="onRowClicked($event)"
+					[data]="student()?.teachers"
+					[filter]="['id']"></ys-custom-list-table>
+		</ng-template>
+	</mat-tab>
+	<mat-tab *ngIf="!auth.isTeacher()" class="pb-5" label="Dokumente">
+		<ng-template matTabContent>
+			<ys-document-page [userType]="'student'" [user]="form.value"></ys-document-page>
+		</ng-template>
+	</mat-tab>
+
+</mat-tab-group>
+

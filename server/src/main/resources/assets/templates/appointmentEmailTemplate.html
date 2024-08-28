@@ -1,0 +1,87 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .header img {
+        max-width: 200px;
+    }
+
+    .header h1 {
+        margin: 0;
+        color: #3f51b5;
+    }
+
+    .content {
+        line-height: 1.6;
+    }
+
+    .content h2 {
+        color: #3f51b5;
+    }
+
+    .content p {
+        margin: 10px 0;
+    }
+
+    .footer {
+        text-align: center;
+        padding-top: 20px;
+        font-size: 0.9em;
+        color: #777;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 20px 0;
+        font-size: 1em;
+        color: #ffffff;
+        background-color: #3f51b5;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="container">
+    <div class="header">
+
+    </div>
+    <div class="content">
+        <h2>Liebe/r [RECIPIENT],</h2>
+        <p>Sie haben einen neuen Termin. Hier sind die Details:</p>
+        <p><strong>Organisator:</strong> [ORGANISATOR]</p>
+        <p><strong>Datum:</strong> [DATUM]</p>
+        <p><strong>Uhrzeit:</strong>von [TIME_BEGIN] Uhr bis [TIME_END] Uhr</p>
+        <p><strong>DESCRIPTION:</strong> [DESCRIPTION]</p>
+        <!--  <p>Bitte bestätigen Sie Ihre Teilnahme, indem Sie auf den folgenden Link klicken:</p>
+          <a href="[Bestätigungslink]" class="btn">Teilnahme bestätigen</a> -->
+        <p>Falls Sie Fragen haben oder den Termin nicht wahrnehmen können, kontaktieren Sie bitte den Administrator oder
+            Lehrer.</p>
+    </div>
+    <div class="footer">
+        <p>Mit freundlichen Grüßen<br>Ihr Schulverwaltungsteam [COMPANY_NAME]</p>
+        <p><a href="https://www.example.de">https://www.example.de</a> | <a
+                href="mailto:[COMPANY_EMAIL]">[COMPANY_EMAIL]</a></p>
+        <img src="cid:logo" alt="LOGO">
+    </div>
+</div>

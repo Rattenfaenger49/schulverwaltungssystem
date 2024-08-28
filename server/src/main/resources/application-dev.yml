@@ -1,0 +1,114 @@
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20GB
+      max-request-size: 20GB
+  application:
+    name: school_system
+  mail:
+    host: localhost
+    port: 1025
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: false
+          starttls:
+            enable: true
+            required: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    open-in-view: true
+    properties:
+      hibernate:
+        enable_lazy_load: true
+  #  cache:
+#    type: redis
+#    cache-names:
+#      - lessons
+#      - users
+#      - files
+#      - contracts
+#      - addresses
+#      - custom
+#    redis:
+#      time-to-live: 30000
+#      cache-null-values: true
+
+  jackson:
+    serialization:
+      fail-on-self-references: true
+      fail-on-unwrapped-type-identifiers: true
+      fail-on-empty-beans: true
+  datasource:
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 30 #
+      idle-timeout: 600000 #
+      connection-timeout: 60000 #
+      keepalive-time: 60000 #
+      max-lifetime: 1800000  #
+  flyway:
+    locations: db/migration
+    baseline-on-migrate: true
+    schemas: public
+    create-schemas: true
+
+defaultTenant: test1
+multi:
+  datasource:
+    keys:  test1,test2
+    test1:
+      driver-class-name:
+      url:
+      username:
+      password:
+    test2:
+      driver-class-name:
+      url:
+      username:
+      password:
+logging:
+  level:
+    org:
+      flywaydb: DEBUG
+      hibernate:
+        SQL: info
+    root: info
+authentication:
+  secret-key: ${SECRET_KEY}
+    expiration-in-seconds: 72000
+  refresh-token:
+    expiration-in-seconds: 604800
+
+## used to save httpExchanges and clientInfo(school information)
+mongodb:
+  authentication-database:
+  database:
+  port:
+  host:
+  username:
+  password:
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+paths:
+  font: src/main/resources/assets/fonts/poppins/
+  storage: ../storage/dev/
+myapp:
+  templatesPath: src/main/resources/assets/templates/
+  domainName: http://localhost:4200
+  email: info@test.de
+

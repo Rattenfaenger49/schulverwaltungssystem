@@ -1,0 +1,76 @@
+<div [formGroup]="form" class="row gx-1">
+	<h2>Elternteil
+		<mat-slide-toggle color="primary" labelPosition="before" [checked]="!isContactDisabled()" (change)="onSliderChange()" ></mat-slide-toggle>
+	
+	</h2>
+	<div class="form-floating mb-2 col-md-6">
+		<select
+				(blur)="onTouched()"
+				FormError
+				class="form-select"
+				formControlName="gender"
+				id="gender">
+			<option value="">---</option>
+			<option value="männlich">männlich</option>
+			<option value="weiblich">weiblich</option>
+		</select>
+		<label class="" for="gender">Geschlecht</label>
+	</div>
+	
+	<div class="form-floating mb-2 col-md-6">
+		<input
+				(blur)="onTouched()"
+				FormError
+				autocomplete="given-name"
+				class="form-control"
+				formControlName="firstName"
+				id="firstName"
+				placeholder=""
+				type="text"/>
+		<label class="" for="firstName">Vornname</label>
+	
+	</div>
+	
+	<div class="form-floating mb-2 col-md-6">
+		<input
+				(blur)="onTouched()"
+				FormError
+				autocomplete="family-name"
+				class="form-control"
+				formControlName="lastName"
+				id="lastName"
+				placeholder=""
+				type="text"/>
+		<label class="" for="lastName">Nachname</label>
+	
+	</div>
+	<div class="form-floating mb-2 col-md-6">
+		<input
+				(blur)="onTouched()"
+				FormError
+				autocomplete="email"
+				class="form-control"
+				formControlName="email"
+				id="email"
+				placeholder=""
+				type="text"
+		/>
+		<label class="" for="email">Email</label>
+	
+	</div>
+	<div class="form-floating mb-2 col-md-6">
+		<input
+				(blur)="onTouched()"
+				FormError
+				autocomplete="phone-number"
+				class="form-control"
+				formControlName="phoneNumber"
+				id="phoneNumber"
+				placeholder=""
+				type="tel"
+		/>
+		<label class="" for="phoneNumber">Telefonnummer</label>
+	
+	</div>
+</div>
+

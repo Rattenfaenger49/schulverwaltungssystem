@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminabsage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .header img {
+            max-width: 200px;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #3f51b5;
+        }
+
+        .content {
+            line-height: 1.6;
+        }
+
+        .content h2 {
+            color: #3f51b5;
+        }
+
+        .content p {
+            margin: 10px 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="cid:logo" alt="LOGO">
+    </div>
+    <div class="content">
+        <h2>Liebe/r [RECIPIENT],</h2>
+        <p>Leider müssen wir Ihnen mitteilen, dass der folgende Termin abgesagt wurde:</p>
+        <p><strong>Organisator:</strong> [ORGANISATOR]</p>
+        <p><strong>Datum:</strong> [DATUM]</p>
+        <p><strong>Uhrzeit:</strong> von [TIME_BEGIN] Uhr bis [TIME_END] Uhr</p>
+        <p><strong>DESCRIPTION:</strong> [DESCRIPTION]</p>
+        <p>Falls Sie Fragen haben, kontaktieren Sie bitte den Administrator oder Lehrer.</p>
+    </div>
+    <div class="footer">
+        <p>Mit freundlichen Grüßen<br>Ihr Schulverwaltungsteam [COMPANY_NAME]</p>
+        <p><a href="https://www.example.de">https://www.example.de</a> | <a href="mailto:[COMPANY_EMAIL]">[COMPANY_EMAIL]</a></p>
+        <img src="cid:logo" alt="LOGO">
+    </div>
+</div>
+</body>
+</html>

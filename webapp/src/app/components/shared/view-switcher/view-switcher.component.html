@@ -1,0 +1,10 @@
+<div class="btn-group bg-transparent" role="group">
+	<button type="button" class="btn" (click)="setView('table')"
+			[ngClass]="{'selected-view': view() === 'table'}">
+		<img ngSrc="assets/img/table-icon.png" alt="Tabellenübersicht" height="25" width="25">
+	</button>
+	<button type="button" class="btn" (click)="setView('card')"
+			[ngClass]="{'selected-view': view() === 'card'}">
+		<img ngSrc="assets/img/card-icon.png" alt="Kartenübersicht" height="25" width="25">
+	</button>
+</div>

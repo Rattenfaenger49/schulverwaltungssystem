@@ -1,0 +1,21 @@
+// Define the class to scale the input element
+// Define the class to scale the input and label
+.input-container-small {
+  transform: scale(0.8); // Scale to 75% of the original size
+  transform-origin: top left; // Ensure scaling starts from the top-left corner
+  box-sizing: border-box; // Ensure padding and borders are included in the width/height
+
+  // Optionally, adjust the font size of the label and input
+  font-size: 0.8rem; // Scale font size to match the input
+}
+
+// Adjust input styling specifically within the container
+.input-container-small input {
+  width: 100%; // Ensure input takes up the full width of the container
+  box-sizing: border-box; // Ensure padding and borders are included in the width/height
+}
+
+// Adjust label styling specifically within the container
+.input-container-small label {
+  font-size: 0.8rem; // Match label font size to the scaled input
+}

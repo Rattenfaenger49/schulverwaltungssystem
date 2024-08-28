@@ -1,0 +1,80 @@
+<div>
+	<div class="row d-flex justify-content-between">
+		<div class="col">
+			<h1>Lehrer/in</h1>
+		</div>
+		<div class="col col mb-3 d-flex justify-content-end">
+			<ys-view-switcher
+					[(view)]="view"
+			></ys-view-switcher>
+		</div>
+	</div>
+</div>
+<div class="row gx-1">
+	<div class="form-floating col-4 col-md-3 mb-2">
+		<select (change)="filterChange()" [(ngModel)]="filterType"
+				class="form-select"
+				id="custom-filter">
+			<option value="">Alle</option>
+			<option value="WITHOUT_STUDENTS">ohne Schüler/in</option>
+			<option value="WITH_STUDENTS">mit Schüler/in</option>
+		</select>
+		<label class="" for="custom-filter">Filter</label>
+	
+	</div>
+	@if(view === 'card'){
+		<div class="col-4 col-md-2 form-floating mb-2">
+			<select (ngModelChange)="onCardSortChange()" [(ngModel)]="sortCriteria" class="form-select"
+					id="sortOptions">
+				<option value="id">Kein</option>
+				@for (key of sortableKeys(); track key) {
+					<option [value]="key.name">{{ key.translation }}</option>
+				}
+				<!-- Add more sorting options as needed -->
+			</select>
+			<label for="sortOptions">Sortieren</label>
+		
+		</div>
+		<div class="col-4 col-md-2 form-floating mb-2">
+			<select (ngModelChange)="onCardSortChange()" [(ngModel)]="sortDirection" class="form-select"
+					id="sortDirection">
+				<option value="asc">Aufsteigend</option>
+				<option value="desc">Absteigend</option>
+			</select>
+			<label for="sortDirection">Sortierart</label>
+		</div>
+	}
+	<div class=" col col-md-4 mb-3">
+		<ys-search-input
+				(searchChange)="changeSearch($event)"
+				[inputText]="searchInput()"
+		></ys-search-input>
+	</div>
+
+
+</div>
+@if (data() !== null) {
+	<div>
+		@if(view === 'table'){
+			<ys-custom-pageable-table
+					[data]="data()"
+					[baseUrl]="'/teachers'"
+					[filter]="filteredKeys"
+					[sorting]="sorting()"
+					(sortChange)="onTableSortChange($event)"
+					(pageNumberChange)="changePage($event)"
+					(rowClicked)="onRowClicked($event)"
+			></ys-custom-pageable-table>
+		} @else {
+			<ys-pageable-cards-list
+					[data]="data()"
+					[baseUrl]="'/teachers'"
+					[filter]="filteredKeys"
+					(pageNumberChange)="changePage($event)"
+					(rowClicked)="onRowClicked($event)"
+			></ys-pageable-cards-list>
+		}
+
+	</div>
+}
+

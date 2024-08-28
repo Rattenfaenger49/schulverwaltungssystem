@@ -1,0 +1,13 @@
+// Define breakpoints
+$small-mobile: 600px; // Adjust as needed
+
+// Apply styles for small mobile devices
+@media (max-width: $small-mobile) {
+  * {
+    font-size: 0.85rem;
+  }
+
+  input[type="text"] {
+    font-size: 0.85rem;
+  }
+}

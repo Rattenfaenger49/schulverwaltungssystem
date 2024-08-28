@@ -1,0 +1,50 @@
+<h2>Bankdaten</h2>
+<form [formGroup]="form">
+	<div class="row">
+		<div class="form-group col-md-6">
+			<label class="col-form-label" for="bankName">Bankname</label>
+			<input (blur)="onTouched()"
+				   FormError
+				   autocomplete="off"
+				   class="form-control"
+				   formControlName="bankName"
+				   id="bankName"
+				   name="bankName"
+				   type="text">
+		</div>
+		<div class="form-group col-md-6">
+			<label class="col-form-label" for="accountHolderName">Kontoinhaber</label>
+			<input (blur)="onTouched()"
+				   FormError
+				   autocomplete="off"
+				   class="form-control"
+				   formControlName="accountHolderName"
+				   id="accountHolderName"
+				   name="accountHolderName"
+				   type="text">
+		</div>
+
+		<div class="form-group col-md-8">
+			<label class="col-form-label" for="iban">IBAN</label>
+			<input (blur)="onTouched()"
+				   FormError
+				   autocomplete="off"
+				   class="form-control"
+				   formControlName="iban"
+				   id="iban"
+				   name="iban"
+				   type="text">
+		</div>
+		<div class="form-group col-md-4">
+			<label class="col-form-label" for="bic">BIC</label>
+			<input (blur)="onTouched()"
+				   FormError
+				   autocomplete="off"
+				   class="form-control"
+				   formControlName="bic"
+				   id="bic"
+				   name="bic"
+				   type="text">
+		</div>
+	</div>
+</form>

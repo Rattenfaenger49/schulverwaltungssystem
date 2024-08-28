@@ -1,0 +1,53 @@
+<div class="preferences-container">
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title>Preferences</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<form [formGroup]="form">
+				<div class="row">
+					<mat-checkbox (blur)="onTouched()"
+								  FormError
+								  formControlName="allowTeacherBillGeneration"
+								  name="allowTeacherBillGeneration">
+						Erlauben Sie die Erstellung von Rechnungen für Lehrer
+					</mat-checkbox>
+				</div>
+				<div class="row">
+					<mat-checkbox (blur)="onTouched()"
+								  FormError
+								  formControlName="allowStudentBillGeneration"
+								  name="allowStudentBillGeneration">
+						Erlauben Sie die Erstellung von Rechnungen für Schüler
+					</mat-checkbox>
+				</div>
+				<div class="row">
+					<mat-checkbox (blur)="onTouched()"
+								  FormError
+								  formControlName="emailNotificationsForAppointments"
+								  name="emailNotificationsForAppointments">
+						E-Mail-Benachrichtigungen für Termine
+					</mat-checkbox>
+				</div>
+				<div class="row">
+					<mat-checkbox (blur)="onTouched()"
+								  FormError
+								  formControlName="emailNotificationForLessonChanges"
+								  name="emailNotificationForLessonChanges">
+						E-Mail-Benachrichtigungen bei Änderungen des Unterrichts
+					</mat-checkbox>
+				</div>
+				<div class="row">
+					<mat-checkbox (blur)="onTouched()"
+								  FormError
+								  formControlName="emailNotificationForClientInfoChanges"
+								  name="emailNotificationForClientInfoChanges">
+						E-Mail-Benachrichtigungen bei Änderungen des Unternehmenprofil
+						<span class="recommended">(empfohlen)</span>
+					
+					</mat-checkbox>
+				</div>
+			</form>
+		</mat-card-content>
+	</mat-card>
+</div>

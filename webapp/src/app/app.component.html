@@ -1,0 +1,153 @@
+<mat-toolbar color="primary">
+	<mat-toolbar-row class="d-flex justify-content-between">
+		<button (click)="sidenav.toggle()" mat-icon-button>
+			<mat-icon>menu</mat-icon>
+		</button>
+		<div>
+			@if (auth.isLoggedIn()) {
+				<mat-icon (click)="toggleTheme()" tooltip="this is a beta versoin">dark_mode</mat-icon>
+				
+				<span>{{ auth.fullName() }}</span>
+				<mat-menu #appMenu="matMenu">
+					<ng-template matMenuContent>
+						<!--  TODO: Add settings and help -->
+						<button mat-menu-item id="logout" (click)="logout()">Abmelden</button>
+						<button mat-menu-item routerLink="profile">Profile</button>
+					</ng-template>
+				</mat-menu>
+				<button mat-icon-button [matMenuTriggerFor]="appMenu">
+					<mat-icon>more_vert</mat-icon>
+				</button>
+			} @else {
+				<a routerLink="login" mat-icon-button matTooltip="Login">
+					<mat-icon>account_circle</mat-icon>
+				</a>
+			}
+			<a (click)="refreshPage()" mat-icon-button>
+				<mat-icon>refresh</mat-icon>
+			</a>
+		
+		
+		</div>
+	</mat-toolbar-row>
+</mat-toolbar>
+
+
+
+<mat-sidenav-container style="height: calc(100% - 64px); margin: 0">
+	<mat-sidenav
+			#sidenav
+			[mode]="isScreenSmall() ? 'over' : 'side'"
+			[opened]="!isScreenSmall()"
+	>
+		<mat-nav-list>
+			@if (auth.isLoggedIn()) {
+				<a mat-list-item routerLink="dashboard"
+				>
+					<mat-icon>dashboard</mat-icon>
+					Dashboard
+				</a>
+				
+				@if (auth.isAdmin()) {
+					<a mat-list-item routerLink="teachers">
+						<mat-icon>supervisor_account</mat-icon>
+						Lehrer/in
+					</a>
+					
+				}
+				@if (auth.isTeacher() || auth.isAdmin()) {
+					<a mat-list-item routerLink="students">
+						<mat-icon>school</mat-icon>
+						Schüler/in
+					</a>
+				}
+				<mat-expansion-panel [class.mat-elevation-z0]="true">
+					<mat-expansion-panel-header> Unterrichten</mat-expansion-panel-header>
+					<a mat-list-item routerLink="lessons">
+						<mat-icon> local_library</mat-icon>
+						Unterrichten
+					</a>
+					@if (auth.isAdmin() || auth.isTeacher()) {
+						<a mat-list-item routerLink="lessons/create">
+							<mat-icon>add_circle</mat-icon>
+							neuer Unterricht
+						</a>
+					}
+				</mat-expansion-panel>
+				
+			}
+			@if (auth.isAdmin()) {
+				
+				<a mat-list-item routerLink="contracts">
+					<mat-icon>assignment</mat-icon>
+					Verträge
+				</a>
+			}
+			@if (auth.isLoggedIn()) {
+				<a mat-list-item routerLink="appointments">
+					<mat-icon>calendar_today</mat-icon>
+					Kalender
+				</a>
+			}
+			<a
+					*ngIf="auth.isAdmin()"
+					mat-list-item
+					routerLink="register"
+			>
+				<mat-icon>person_add</mat-icon>
+				Register
+			</a>
+			<a
+					*ngIf="auth.isAdmin()"
+					mat-list-item
+					routerLink="company-info"
+			>
+				<mat-icon>info</mat-icon>
+				Unternehmensprofil
+			</a>
+			<a *ngIf="auth.isLoggedIn()" mat-list-item routerLink="profile">
+				<mat-icon>account_circle</mat-icon>
+				Profile
+			</a>
+			<a href="#" mat-list-item>
+				<mat-icon>help_outline</mat-icon>
+				Datenschutz
+			</a>
+			@if (false) {
+				<mat-expansion-panel [class.mat-elevation-z0]="true">
+					<mat-expansion-panel-header> Preference</mat-expansion-panel-header>
+					
+					<a mat-list-item routerLink="#">
+						<mat-icon>attach_money</mat-icon>
+						Billing
+					</a>
+					<a mat-list-item routerLink="#">
+						<mat-icon>notification_important</mat-icon>
+						Notification
+					</a>
+				</mat-expansion-panel>
+				<mat-expansion-panel [class.mat-elevation-z0]="true">
+					<mat-expansion-panel-header> Privacy</mat-expansion-panel-header>
+					<a mat-list-item routerLink="#">
+						<mat-icon>person_add</mat-icon>
+						Partnership Request
+					</a>
+					<a mat-list-item routerLink="#">
+						<mat-icon>visibility</mat-icon>
+						Profile Visibility
+					</a>
+				</mat-expansion-panel>
+			}
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<div class="m-4" >
+			<router-outlet>
+				<ys-loader/>
+			</router-outlet>
+
+		</div>
+	</mat-sidenav-content>
+
+
+</mat-sidenav-container>

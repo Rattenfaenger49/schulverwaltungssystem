@@ -1,0 +1,7 @@
+@if (!hidden) {
+  <div class="warning-message alert" [ngClass]="InfoMessageTypeClasses[type()]"
+    [@fadeInOut]="show() ? 'in' : 'out'">
+    {{ message() }}
+    <button (click)="close()">X</button>
+  </div>
+}

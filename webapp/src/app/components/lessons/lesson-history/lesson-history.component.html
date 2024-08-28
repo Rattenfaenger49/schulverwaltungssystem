@@ -1,0 +1,58 @@
+<mat-accordion>
+	@for (archive of lessonVersions(); track archive.id) {
+		
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					Archiviert am: {{ archive.createdAt | date:'short' }}
+				</mat-panel-title>
+				<mat-panel-description>
+					{{ archive.modulType }} - {{ archive.lessonType }} | {{ archive.units }} Units
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+			
+			<div class="archive-content container">
+				<div class="row">
+					<div class="col-md-6">
+						<p><strong>Fach:</strong> {{ archive.modulType }}</p>
+						<p><strong>Unterrichttype:</strong> {{ archive.lessonType }}</p>
+						<p><strong>Vertragstyp:</strong> {{ archive.contractType }}</p>
+						<p><strong>Beginn:</strong> {{ archive.startAt | date:'short' }}</p>
+						<p><strong>Unterrichtseinheiten:</strong> {{ archive.units }}</p>
+					</div>
+					<div class="col-md-6">
+						<p><strong>Beschreibung:</strong> {{ archive.description }}</p>
+						<p><strong>Kommentar:</strong> {{ archive.comment }}</p>
+						<p><strong>Lehrer:</strong>
+							<a [routerLink]="['/teachers', archive.teacherId]">{{ archive.teacherName }}</a>
+						</p>
+						<p><strong>Schüler:</strong>
+							@for (student of archive.studentNames.split(', '); track student; let i = $index) {
+								
+								<a [routerLink]="['/students',archive.studentsIds.split(',')[i]]">{{ student }}</a>
+								@if (!$last) {
+									<span>, </span>
+								}
+								
+							}
+						</p>
+						<p><strong>Archiviert von:</strong> {{ archive.createdBy }}</p>
+					</div>
+				</div>
+			</div>
+		</mat-expansion-panel>
+		
+	}
+</mat-accordion>
+
+
+<!--	<mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+		<mat-expansion-panel-header>
+			<mat-panel-title> Self aware panel </mat-panel-title>
+			<mat-panel-description>
+				Currently I am {{panelOpenState() ? 'open' : 'closed'}}
+			</mat-panel-description>
+		</mat-expansion-panel-header>
+		<p>I'm visible because I am open</p>
+	</mat-expansion-panel>-->
+

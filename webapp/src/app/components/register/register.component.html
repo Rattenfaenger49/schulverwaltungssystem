@@ -1,0 +1,222 @@
+<div class="container mt-0 mt-lg-4 pt-2">
+	<div class="row pt-4 d-flex">
+		<div class="col-md-6 col-lg-4">
+			<h1>Registrierungsformular</h1>
+		</div>
+	</div>
+	<form (ngSubmit)="onSubmit()" [formGroup]="form">
+		<div class="row gx-1">
+			<div class="form-floating mb-2 col-md-6 col-lg-4">
+				<select
+						FormError class="form-select" formControlName="gender" id="gender">
+					<option  value="">---</option>
+					<option value="männlich">männlich</option>
+					<option  value="weiblich">weiblich</option>
+				</select>
+				<label  for="gender">Geschlecht</label>
+			
+			</div>
+			<div class="form-floating mb-2 col-md-6 col-lg-4">
+				<select
+						#userType
+						FormError
+						class="form-select"
+						formControlName="userType"
+						id="userType"
+				>
+					<option value="ADMIN">Admin</option>
+					<option value="TEACHER">Lehrer</option>
+					<option value="STUDENT">Schüler</option>
+				</select>
+				<label for="userType">Benutzertyp</label>
+			
+			</div>
+			
+			@if (userType.value === "STUDENT") {
+				<div class="form-floating mb-2 col-md-6 col-lg-4">
+					<select
+							#userType
+							FormError
+							class="form-select"
+							formControlName="portalAccess"
+							id="portalAccess"
+					>
+						<option value="true">Ja</option>
+						<option value="false">Nein</option>
+					</select>
+					<label  for="portalAccess">Möchte Zugriff auf Portal?</label>
+				
+				</div>
+			}
+			<div class="form-floating mb-2 col-md-6 col-lg-4">
+				<input
+						FormError
+						autocomplete="given-name"
+						class="form-control"
+						placeholder=""
+						formControlName="firstName"
+						id="firstName"
+						type="text"
+				/>
+				<label for="firstName">Vornname</label>
+			
+			</div>
+			<div class="form-floating mb-2 col-md-6 col-lg-4">
+				<input
+						FormError
+						autocomplete="family-name"
+						class="form-control"
+						placeholder=""
+						formControlName="lastName"
+						id="lastName"
+						type="text"
+				/>
+				<label  for="lastName">Nachname</label>
+			
+			</div>
+			<div class="form-floating mb-2 col-md-6 col-lg-4">
+				<input
+						FormError
+						autocomplete="email"
+						class="form-control"
+						placeholder=""
+						formControlName="username"
+						id="username"
+						type="text"
+				/>
+				<label  for="username">Email</label>
+			
+			</div>
+			<div class="form-floating mb-2 col-md-6 col-lg-4">
+				<input
+						FormError
+						class="form-control"
+						placeholder=""
+						formControlName="birthdate"
+						id="birthdate"
+						type="date"
+				/>
+				<label  for="birthdate">Geburtsdatum</label>
+			
+			</div>
+			<div class="form-floating mb-2 col-md-6 col-lg-4">
+				<input
+						FormError
+						autocomplete="phone"
+						class="form-control"
+						placeholder=""
+						formControlName="phoneNumber"
+						id="phoneNumber"
+						type="tel"
+				/>
+				<label  for="phoneNumber">Telefonnumer</label>
+			
+			</div>
+			
+			@if (form.get("userType")?.value === "TEACHER") {
+				<div class="form-floating mb-2 col-md-6 col-lg-4">
+					<input
+							type="text"
+							formControlName="qualifications"
+							class="form-control"
+							placeholder=""
+							id="qualifications"
+					/>
+					<label  for="qualifications">Qualifikationen</label>
+				
+				</div>
+				<div class="form-floating mb-2 col-md-6 col-lg-4">
+					<input
+							type="text"
+							formControlName="education"
+							class="form-control"
+							placeholder=""
+							id="education"
+					/>
+					<label  for="education">Bildung</label>
+				
+				</div>
+			
+				<div class="form-floating mb-2 col-md-6 col-lg-4">
+					<input
+							FormError
+							[customMessage]="'Muss mit \'DE\' beginnen und 10 oder 11 Ziffern enthalten'"
+							class="form-control"
+							placeholder=""
+							formControlName="taxId"
+							id="taxId"
+							type="text"
+					/>
+					<label  for="taxId">Steuer-ID</label>
+				
+				</div>
+				<div class="form-floating mb-2 col-md-6 col-lg-4">
+					<input
+							type="text"
+							formControlName="hourlyRate"
+							FormError
+							class="form-control"
+							placeholder=""
+							id="hourlyRate"
+
+					/>
+					<label  for="hourlyRate">Stundenlohn</label>
+				
+				</div>
+				<div class="form-floating mb-2 col-md-6 col-lg-4">
+					<input
+							type="text"
+							formControlName="hourlyRateGroup"
+							FormError
+							class="form-control"
+							placeholder=""
+							id="hourlyRateGroup"
+	
+					/>
+					<label  for="hourlyRateGroup">Stundenlohn für Gruppe</label>
+				
+				</div>
+			}
+			@if (form.get("userType")?.value === "STUDENT") {
+				<!-- Zusätzliche Felder für Schüler -->
+				<div class="form-floating mb-2 col-md-6 col-lg-4">
+					<input
+							type="text"
+							formControlName="level"
+							class="form-control"
+							placeholder=""
+							id="level"
+							FormError
+					/>
+				<label  for="level">Klassenstufe</label>
+			
+			</div>
+				
+			}
+		</div>
+		<div class="row gx-1">
+			@if (form.get("userType")?.value === "STUDENT") {
+				<div class="form-floating mb-2 col-md-6">
+					<ys-parent
+							[(isContactDisabled)]="isContactDisabled"
+							[isInvalid]="isInvalid()"
+							formControlName="parent"
+					></ys-parent>
+				</div>
+			}
+			<div class="col">
+				<ys-address
+						[isInvalid]="isInvalid()"
+						formControlName="address"
+				></ys-address>
+			</div>
+		</div>
+		
+		
+		<div class="col text-end">
+			<button class="btn btn-primary mt-5" type="submit">Registrieren</button>
+		</div>
+	</form>
+</div>
+
+

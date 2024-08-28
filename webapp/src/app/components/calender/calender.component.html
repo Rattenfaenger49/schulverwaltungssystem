@@ -1,0 +1,114 @@
+<div class="calendar-container">
+	<div class="row mt-4">
+		<div class="col-md-4 text-left"></div>
+		<div class="col-md-4 text-center">
+			<h3 class="mt-0">
+				{{
+					viewDate()
+							| calendarSchedulerDate
+							: view() + "ViewTitle"
+									: locale
+									: weekStartsOn()
+									: excludeDays
+									: viewDays()
+									: startsWithToday
+				}}
+			</h3>
+			<select
+					#viewDayOptionSelect1
+					(change)="viewDaysOptionChanged(viewDayOptionSelect1.value)"
+					[ngModel]="viewDays()"
+					class="form-select "
+			>
+				<option [value]="1">Ein Tag</option>
+				<option [value]="3">Drei Tage</option>
+				<option [value]="7">Sieben Tage</option>
+			</select>
+		</div>
+		<div class="col-md-4 text-right">
+			<div class="row">
+				
+				<div class="col-6 col-md-12 col-xl-6">
+					<div class="btn-group m-1" role="group">
+						<button
+								(viewDateChange)="dateOrViewChanged($event)"
+								[daysInWeek]="viewDays()"
+								[disabled]="prevBtnDisabled"
+								[excludeDays]="excludeDays"
+								[viewDate]="viewDate()"
+								[view]="view()"
+								class="btn btn-primary"
+								mwlCalendarPreviousView
+								type="button"
+						>
+              <span class="valign-center">
+                <i class="material-icons md-18" title="Precedente"
+				>keyboard_arrow_left</i
+				>
+              </span>
+						</button>
+						<button
+								(viewDateChange)="dateOrViewChanged($event)"
+								[viewDate]="viewDate()"
+								class="btn btn-light"
+								mwlCalendarToday
+								type="button"
+						>
+              <span class="valign-center">
+                <i class="material-icons md-18" title="Oggi">today</i>
+              </span>
+						</button>
+						<button
+								(viewDateChange)="dateOrViewChanged($event)"
+								[daysInWeek]="viewDays()"
+								[disabled]="nextBtnDisabled"
+								[excludeDays]="excludeDays"
+								[viewDate]="viewDate()"
+								[view]="view()"
+								class="btn btn-primary"
+								mwlCalendarNextView
+								type="button"
+						>
+              <span class="valign-center">
+                <i class="material-icons md-18" title="Successivo"
+				>keyboard_arrow_right</i
+				>
+              </span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br/>
+	<div>
+		<calendar-scheduler-view
+				(dayHeaderClicked)="dayHeaderClicked($event.day)"
+				(eventClicked)="eventClicked('Clicked', $event.event)"
+				(eventTimesChanged)="eventTimesChanged($event)"
+				(hourClicked)="hourClicked($event.hour)"
+				(segmentClicked)="segmentClicked('Clicked', $event.segment)"
+				(viewDaysChanged)="viewDaysChanged($event)"
+				[dayEndHour]="dayEndHour"
+				[dayModifier]="dayModifier"
+				[dayStartHour]="dayStartHour"
+				[eventModifier]="eventModifier"
+				[events]="events()"
+				[excludeDays]="excludeDays"
+				[hourModifier]="hourModifier"
+				[hourSegments]="4"
+				[locale]="locale"
+				[refresh]="refresh"
+				[responsive]="true"
+				[segmentModifier]="segmentModifier"
+				[showEventActions]="true"
+				[showSegmentHour]="true"
+				[startsWithToday]="startsWithToday"
+				[viewDate]="viewDate()"
+				[viewDays]="viewDays()"
+				[weekStartsOn]="weekStartsOn()"
+				[zoomEventOnHover]="true"
+		>
+		</calendar-scheduler-view>
+	</div>
+</div>

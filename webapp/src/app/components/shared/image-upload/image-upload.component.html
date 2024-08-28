@@ -1,0 +1,56 @@
+
+
+
+<div class="uploader-main">
+	<div class="uploader-inner">
+		
+		<div class="preview-wrapper" >
+			<div class="preview-inner">
+				<div class="preview">
+					
+					<img #uploadedImage id="uploadedImage" src="" width="100%" alt="logo">
+					<div class="preview-drop">
+						<mat-icon class="icon-size" (click)="uploadedImage.src = ''">delete</mat-icon>
+						<mat-icon  class="icon-size" (click)="uploadImage.click()" >edit</mat-icon>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<input #uploadImage id="uploadImage" type="file" accept="image/gif,image/jpeg,image/jpg,image/png" style="visibility: hidden; opacity: 0;"
+			   (change)="uploadHandler($event)">
+	
+	</div>
+	<button mat-flat-button color="primary m-1" (click)="uploadImage.click()" >LOGO hochladen</button>
+	<button mat-flat-button color="accent" (click)="uploadedImage.src = ''">LOGO lösche </button>
+</div>
+
+
+<!--
+<div class="uploader-main">
+	<div class="uploader-inner">
+		
+		<div class="preview-wrapper" >
+			<div class="preview-inner">
+				<div class="preview">
+					
+					<div style="width: 200px; height: 200px; top: 0px; left: 0px; position: absolute;">
+						<img #uploadedImage id="uploadedImage" src=""  style="height: auto; width: 100%;  object-fit: contain;" alt="">
+					</div>
+					
+					<div class="preview-drop">
+						<mat-icon class="icon-size" (click)="uploadedImage.src = ''">delete</mat-icon>
+						<mat-icon  class="icon-size" (click)="uploadImage.click()" >edit</mat-icon>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<input #uploadImage id="uploadImage" type="file" accept="image/gif,image/jpeg,image/jpg,image/png" style="visibility: hidden; opacity: 0;"
+			   (change)="uploadHandler($event)">
+	
+	</div>
+	<button mat-flat-button color="primary m-1" (click)="uploadImage.click()" >LOGO hochladen</button>
+	<button mat-flat-button color="accent" (click)="uploadedImage.src = ''">LOGO lösche </button>
+</div>
+-->

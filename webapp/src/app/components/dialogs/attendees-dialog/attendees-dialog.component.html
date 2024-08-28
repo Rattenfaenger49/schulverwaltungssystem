@@ -1,0 +1,36 @@
+<div class="container">
+	
+	<mat-dialog-content>
+		<h1>Teilnehmer bearbeiten</h1>
+		
+		<ys-autocomplete-list
+				(selectedElemnt)="addAttendees($event)"
+				[elements]="students"
+				[type]="'Lade weitere personen ein:'"
+		></ys-autocomplete-list>
+		
+		<h2 class="d-inline"></h2>
+		
+		<h2>Teilnehmer</h2>
+		
+		<ul class="participant-list">
+			<li class="participant">
+				<strong>Ersteller</strong>  {{ appointment?.organizer.firstName }} {{ appointment?.organizer?.lastName }}
+			</li>
+			@for (att of appointment?.attendees; track att.id) {
+				<li class="participant d-flex justify-content-between align-items-center">
+					- {{ att.firstName + ' ' + att.lastName }}
+					<mat-icon (click)="removeAttendees(att.id)" class="cancel-icon">delete</mat-icon>
+				
+				</li>
+				
+			}
+		</ul>
+	
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button (click)="onSave()" mat-button mat-dialog-actions>Save</button>
+		<button (click)="onClose()" mat-button matDialogClose>Schließen</button>
+	</mat-dialog-actions>
+
+</div>

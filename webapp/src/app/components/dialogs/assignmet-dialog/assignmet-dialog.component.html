@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Schüler einem Lehrer zuweisen</h2>
+<mat-dialog-content class="mat-typography">
+	<div class="assignment-container" [formGroup]="form">
+      <div class="column">
+        <ys-autocomplete-list
+          [elements]="students"
+          (selectedElemnt)="selectedStudent($event)"
+          [type]="'Schüler/in'"
+        ></ys-autocomplete-list>
+      </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onClose()" matDialogClose>Abbrechen</button>
+
+    <button
+      mat-button
+      color="primary"
+
+      (click)="onAssign()"
+    >
+      Weiter
+    </button>
+</mat-dialog-actions>
+

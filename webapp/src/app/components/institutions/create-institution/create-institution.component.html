@@ -1,0 +1,73 @@
+<ng-container>
+  <!--TODO form-floating mb-3
+  TODO https://getbootstrap.com/docs/5.0/forms/floating-labels/
+  -->
+
+  <div class="container mt-4 pt-2">
+    <div class="row pt-4">
+      <div class="col-6">
+        <h1>Institution Überblick</h1>
+      </div>
+      <div class="col-6 d-flex align-items-end flex-column">
+        <img
+          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+          alt="avatar"
+          class="rounded-circle img-fluid"
+          style="width: 100px"
+        />
+      </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row pt-4">
+        <div class="col-6">
+          <h2>Institution Information</h2>
+          <div class="form-group">
+            <label class="col-form-label" for="name">Name</label>
+            <input
+              type="text"
+              formControlName="name"
+              class="form-control"
+              id="name"
+              FormError
+            />
+          </div>
+          <div class="form-group">
+            <label class="col-form-label" for="email">Email</label>
+            <input
+              type="text"
+              formControlName="email"
+              class="form-control"
+              id="email"
+              FormError
+            />
+          </div>
+          <div class="form-group">
+            <label class="col-form-label" for="phoneNumber">Telefonnummer</label>
+            <input
+              type="tel"
+              formControlName="phoneNumber"
+              class="form-control"
+              id="phoneNumber"
+              FormError
+            />
+          </div>
+        </div>
+        <div class="col-6">
+          <ys-address formControlName="address" [isInvalid]="isInvalid()"></ys-address>
+        </div>
+      </div>
+
+      <div >
+        <ys-contact [isInvalid]="isInvalid()" formControlName="contacts"></ys-contact>
+      </div>
+      <div class="col text-end">
+        <button
+          type="submit"
+          class="btn btn-primary mt-5">
+          Speichern
+        </button>
+      </div>
+    </form>
+  </div>
+
+</ng-container>

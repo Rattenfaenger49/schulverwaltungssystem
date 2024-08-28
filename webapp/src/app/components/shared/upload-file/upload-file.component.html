@@ -1,0 +1,32 @@
+<input
+  type="file"
+  class="file-input"
+  (change)="onFileSelected($event)"
+  #fileUpload
+/>
+
+<div class="file-upload">
+
+  <button
+    mat-mini-fab
+    color="primary"
+    class="upload-btn"
+	tooltip="hochladen"
+    type="button"
+    (click)="fileUpload.click()"
+  >
+    <mat-icon>attach_file</mat-icon>
+  </button>
+</div>
+@if (fileList().length > 0) {
+  <div class="file-list">
+    <ul>
+      @for (file of fileList(); track file) {
+        <li class="file-item">
+            <span>{{ file?.name }} {{file.progress }}%</span>
+
+        </li>
+      }
+    </ul>
+  </div>
+}

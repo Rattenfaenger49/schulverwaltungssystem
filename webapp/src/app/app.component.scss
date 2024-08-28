@@ -1,0 +1,14 @@
+:host {
+  background-color: var(--mat-sidenav-content-background-color);
+  color: var(--foreground-color);
+
+  .mat-toolbar {
+    background-color: var(--primary-color);
+  }
+
+  .mat-sidenav-container {
+    background-color: var(--background-color);
+  }
+
+
+}

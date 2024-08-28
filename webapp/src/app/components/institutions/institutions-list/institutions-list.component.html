@@ -1,0 +1,22 @@
+
+<div class="container">
+	<h1>Geschäftsstellen</h1>
+	
+	<ys-search-input
+    [inputText]="searchInput()"
+    (searchChange)="changeSearch($event)"
+  ></ys-search-input>
+  @if (data$ | async; as data) {
+    <div>
+      <ys-custom-pageable-table
+        [data]="data.data"
+		[baseUrl]="'/institutions'"
+        [filter]="filteredKeys"
+        (pageNumberChange)="changePage($event)"
+        (rowClicked)="onRowClicked($event)"
+      
+      >
+      </ys-custom-pageable-table>
+    </div>
+  }
+</div>

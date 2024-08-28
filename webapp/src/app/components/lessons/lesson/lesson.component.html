@@ -1,0 +1,317 @@
+<mat-tab-group
+		(selectedIndexChange)="urlParamService.onTabChange('tab',$event)"
+		[selectedIndex]="params()['tab']" mat-align-tabs="start"
+		mat-stretch-tabs="false">
+	
+	<mat-tab label="Unterricht">
+		
+		<ng-template matTabContent>
+			<div class="">
+				<div class="col-lg-6">
+					<h1>
+						Unterricht-Details
+						@if (auth.isAdmin()) {
+							<mat-icon
+									class="cancel-icon pt-1"
+									(click)="delete()"
+									tooltip="löschen"
+							>delete
+							</mat-icon
+							>
+						}
+					</h1>
+				</div>
+			</div>
+			<form [formGroup]="form">
+				<div>
+					<div class="row p-2">
+						<div class="form-group col-s-6 col-md-6 col-lg-4 col-xl-3">
+							<mat-form-field appearance="outline" class="w-100">
+								<mat-label>Welchem Fach wurde gegeben?</mat-label>
+								<mat-select
+										FormError
+										formControlName="modulType"
+								>
+									@for (option of Object.values(ModuleType); track option) {
+										<mat-option [value]="option">{{ option }}</mat-option>
+									}
+								</mat-select>
+							</mat-form-field>
+						</div>
+						<div class="form-group col-s-6 col-md-6 col-lg-4 col-xl-3">
+							<mat-form-field appearance="outline" class="w-100">
+								<mat-label>Vertragstyp</mat-label>
+								<mat-select
+										FormError
+										formControlName="contractType"
+										id="contractType">
+									@for (option of Object.values(ContractType); track option) {
+										<mat-option [value]="option">{{ option }}</mat-option>
+									}
+								</mat-select>
+							</mat-form-field>
+						</div>
+						
+						<div class="form-group col-s-6 col-md-6 col-lg-4 col-xl-3">
+							<mat-form-field appearance="outline" class="w-100">
+								<mat-label
+								>In welchem Form wurde den Unterricht gegebene?
+								</mat-label
+								>
+								<mat-select
+										FormError
+										formControlName="lessonType"
+								>
+									<mat-option value="ONLINE">Online</mat-option>
+									<mat-option value="PRESENTS_SCHOOL"
+									>Präsent in der Schule
+									</mat-option
+									>
+									<mat-option value="PRESENTS_HOME"
+									>Präsent bei Schuler/in
+									</mat-option
+									>
+									<mat-option value="OTHER">sonstige</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+						
+						<div class="form-group col-s-6 col-md-6 col-lg-4 col-xl-3">
+							<mat-form-field appearance="outline" class="w-100">
+								<input
+										[matDatepickerFilter]="isDateEnabled"
+										[max]="100"
+										[min]="0"
+										[ngxMatDatetimePicker]="picker"
+										formControlName="startAt" matInput
+										placeholder="Choose a date">
+								<mat-datepicker-toggle [for]="picker" matSuffix>
+								</mat-datepicker-toggle>
+								<ngx-mat-datetime-picker #picker
+														 [showSeconds]="false"
+														 [showSpinners]="true"
+														 [stepHour]="1"
+														 [stepSecond]="1"
+														 [touchUi]="true"
+														 color="primary"
+								>
+								</ngx-mat-datetime-picker>
+							</mat-form-field>
+						</div>
+						<div class="form-group col-s-6 col-md-6 col-lg-4 col-xl-3">
+							<mat-form-field appearance="outline" class="w-100">
+								<mat-label
+								>Wie viele Unterrichtseinheiten wurde gegeben?
+								</mat-label
+								>
+								<mat-select
+										FormError
+										formControlName="units"
+										placeholder="Anzahl der Einheiten"
+								>
+									@for (num of unitsList; track num) {
+										<mat-option [value]="num.toString()">{{ num }}</mat-option>
+									}
+								</mat-select>
+							</mat-form-field>
+						</div>
+						@if (auth.isAdmin()) {
+							<div class="form-group col-s-6 col-md-6 col-lg-4 col-xl-3">
+								<mat-form-field class="w-100" appearance="outline">
+									<mat-label>Lehrer/in</mat-label>
+									<input
+											#inputTeacher
+											type="text"
+											placeholder="wähle ein/e Lehrer/in"
+											aria-label="Lerher/in"
+											matInput
+											[matAutocomplete]="autoTeachers"
+											[value]="teacherName"
+											(input)="filterTeachers($event.target?.value)"
+									/>
+									@if (form.controls["teacher"]?.invalid && isSubmitted()) {
+										<div class="is-invalid">
+											<mat-error>Wähle Lehrer/in</mat-error>
+										</div>
+									}
+									<mat-autocomplete #autoTeachers="matAutocomplete">
+										@for (teacher of teachers$ | async; track teacher) {
+											<mat-option
+													[value]="teacher.firstName + ' ' + teacher.lastName"
+													(click)="onAssignTeacher(teacher)"
+											>
+												{{ teacher.firstName }} {{ teacher.lastName }}
+											</mat-option>
+										}
+									</mat-autocomplete>
+								</mat-form-field>
+							</div>
+						}
+						<div class="form-group col-s-6 col-md-6 col-lg-4 col-xl-3">
+							<mat-form-field appearance="outline" class="w-100">
+								<mat-label>Schüler/in</mat-label>
+								<input
+										#inputStudent
+										(input)="filterStudents($event.target?.value)"
+										[matAutocomplete]="autoStudents"
+										aria-label="Schüler/in"
+										matInput
+										placeholder="wähle Schüler/in"
+										type="text"
+								/>
+								@if (students.length < 1 && isSubmitted()) {
+									<div class="is-invalid">
+										<mat-error>Wähle Schüler/in</mat-error>
+									</div>
+								}
+								
+								<mat-autocomplete #autoStudents="matAutocomplete">
+									@for (student of studentsList$ | async; track student.id) {
+										<mat-option
+												[value]="student.firstName + ' ' + student.lastName"
+												(click)="assignStudent(student)"
+										>
+											{{ student.firstName }} {{ student.lastName }}
+										</mat-option>
+									}
+								</mat-autocomplete>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="row p-2">
+						<div class=" col-lg-6">
+							<mat-form-field appearance="outline" class="w-100 ">
+								<mat-label>Beschreibung</mat-label>
+								<textarea
+										FormError
+										cdkTextareaAutosize
+										formControlName="description"
+										id="description"
+										matInput
+										maxlength="512"
+										placeholder="Beschreiben Sie kürz den Inhalt der Unterricht"
+								></textarea>
+							</mat-form-field>
+						</div>
+						<div class=" col-lg-6">
+							<mat-form-field appearance="outline" class="w-100 ">
+								<mat-label>Kommentar</mat-label>
+								<textarea
+										FormError
+										cdkTextareaAutosize
+										formControlName="comment"
+										id="comment"
+										matInput
+										maxlength="512"
+										placeholder="Schreiben Sie etwas für den Schüler bzw. die Eltern"
+								></textarea>
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+				@if (students.length > 0) {
+					<h2>Teilnehmer</h2>
+					<div class="students" style="max-width: 500px">
+						<ul class="list-group ">
+							@for (student of students.controls; track student; let i = $index) {
+								<li
+										class="list-group-item d-flex align-items-center bg-transparent"
+								>
+									
+									<p class="nav-link m-0 flex-grow-1">
+										{{ i + 1 }}
+										- {{ student.get("firstName")?.value }}  {{ student.get("lastName")?.value }}
+									</p>
+									<mat-icon
+											(click)="removeStudent(i)"
+											class="cancel-icon mx-2 overflow-visible"
+									>delete
+									</mat-icon>
+								</li>
+							}
+						</ul>
+					</div>
+				}
+				<hr>
+				@if ((auth.isAdmin() ||
+						auth.isTeacher()) && isUpdate()) {
+					<div class="row">
+						<div class="col-auto">
+							<h2>Hausaufgaben</h2>
+						</div>
+						<div class="col-auto">
+							<ys-upload-file
+									[metadata]="metadata()"
+									[fileTypes]="['pdf', 'doc', 'docx', 'txt', 'png', 'jpg', 'jpeg']"
+									(fileUploaded)="fileUploaded($event)"
+							></ys-upload-file>
+						</div>
+						@if (uploadedFiles()?.length > 0) {
+							<div class="uploaded-files">
+								<ul class="list-group list-group-flush">
+									@for (file of uploadedFiles(); track file.id) {
+										<li
+												class="list-group-item d-flex align-items-center bg-transparent"
+										>
+											<mat-icon
+													(click)="downloadFileOnDevice(file)"
+													class="ok-icon mx-2 overflow-visible"
+													tooltip="lade die Datei herunter">cloud_download
+											</mat-icon>
+											<p class="nav-link m-0 flex-grow-1 file-name">
+												{{ file.fileName }}
+											</p>
+											<mat-icon
+													class="mx-2 cancel-icon overflow-visible"
+													tooltip="löschen"
+													(click)="deleteFile(file)">
+												delete
+											</mat-icon
+											>
+										</li>
+									}
+								</ul>
+							</div>
+						} @else {
+							<div>
+								<h5>Keine Hausaufgaben</h5>
+							</div>
+						}
+					</div>
+				}
+				
+				<hr/>
+				
+				
+				<div class="col text-end">
+					@if (auth.isAdmin() || auth.isTeacher()) {
+						@if (form.value.id && form.value?.isSigned === "Nein") {
+							<button
+									type="button"
+									class="btn btn-secondary mx-2"
+									(click)="openSignatureDialog()"
+							>
+								Unterschreiben
+							</button>
+						}
+						<button type="button" class="btn btn-primary" (click)="onSave()">
+							Speichern
+						</button>
+					}
+				</div>
+			</form>
+		</ng-template>
+	</mat-tab>
+	
+	@if (form.value.id != null && (auth.isAdmin() || auth.isTeacher())) {
+		<mat-tab label="Archive">
+			
+			<ng-template matTabContent>
+				<ys-lesson-history
+						[lessonId]="form.value.id"
+				></ys-lesson-history>
+			</ng-template>
+		</mat-tab>
+	}
+</mat-tab-group>
+

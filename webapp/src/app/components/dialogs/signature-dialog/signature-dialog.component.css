@@ -1,0 +1,15 @@
+canvas {
+    display: block;
+    border: 2px dashed #494848;
+    margin: 0 auto;
+    background-color: #c9c9c3;
+}
+/* Adjusting the overlay backdrop */
+.cdk-overlay-backdrop {
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+}
+
+/* Adjusting the shadow of the dialog */
+.cdk-overlay-container .mat-dialog-container {
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5); /* Adjust shadow properties as needed */
+}

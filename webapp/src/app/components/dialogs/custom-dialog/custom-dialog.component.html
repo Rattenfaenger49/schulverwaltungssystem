@@ -1,0 +1,27 @@
+<div [@zoom]="" class="dialog-container ">
+	
+	<h1 mat-dialog-title>{{ data.type | uppercase }}</h1>
+	<mat-dialog-content class="container">
+		<mat-icon>{{ getIcon() }}</mat-icon>
+		<p>{{ data.message }}</p>
+	</mat-dialog-content>
+	
+	<mat-dialog-actions align="end">
+		@if (data.type != 'info') {
+			<button mat-button color="primary" (click)="onClick(true)">Weiter</button>
+			<button mat-button (click)="onClick(false)">Abbrechen</button>
+		}
+		@for (button of data?.buttons; track button) {
+			<button
+					mat-raised-button
+					color="primary"
+					(click)="onClick(button.value)"
+			>
+				{{ button.text }}
+			</button>
+		}
+	</mat-dialog-actions>
+</div>
+
+
+

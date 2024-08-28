@@ -1,0 +1,85 @@
+{
+  "appData": {
+    "version": "1.0",
+    "releaseDate": "2024-05-12"
+  },
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap",
+          "https://fonts.googleapis.com/icon?family=Material+Icons"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "lazy",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "client-preferences",
+      "urls": [
+        "/api/v1/client-info/preferences"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 1,
+        "maxAge": "1d"
+      }
+    },
+    {
+      "name": "client-preferences",
+      "urls": [
+        "/api/v1/dates/feiertage"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 1,
+        "maxAge": "5d"
+      }
+    },
+    {
+      "name": "client-preferences",
+      "urls": [
+        "/api/v1/teachers/fullnames"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 1,
+        "maxAge": "2h"
+      }
+    },
+    {
+      "name": "client-preferences",
+      "urls": [
+        "/api/v1/students/fullnames"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 1,
+        "maxAge": "2h"
+      }
+    }
+  ]
+}

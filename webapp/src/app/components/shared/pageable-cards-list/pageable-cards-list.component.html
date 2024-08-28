@@ -1,0 +1,66 @@
+@if (data() && data().content) {
+
+	<div class="row">
+		@for (content of data().content | paginate:
+				{
+					itemsPerPage: data()?.size,
+					currentPage: data()!.number + 1,
+					totalItems: data()?.totalElements
+				}; track content; let i = $index) {
+			<div class="col-md-6 col-lg-4 col-xl-3 p-2">
+				<mat-card class="" appearance="outlined">
+					<mat-card-header>
+						<mat-card-title-group>
+							<!--
+															<mat-card-title> <strong>{{ getTitle(content) }}</strong> </mat-card-title>
+							-->
+						</mat-card-title-group>
+					</mat-card-header>
+					<mat-card-content>
+						@for (key of getKeys(); track key) {
+							
+							@if (key.name === 'students') {
+								<p><strong>{{ key.translation }}: </strong>
+									@for (user of splitContent(content[key.name]) |renderContent; track user) {
+										<span class="mt-0 mb-0"> {{ user }}, </span>
+									}
+								</p>
+							} @else if (key.name === 'student') {
+								<p><strong>{{ key.translation }}
+									: </strong> {{ content[key.name].firstName }} {{ content[key.name].lastName }}
+								</p>
+							} @else if (key.name === 'startAt' || key.name === 'endAt') {
+								<p><strong>{{ key.translation }}: </strong> {{ content[key.name] | date: 'short' }}
+									Uhr</p>
+							} @else {
+								<p><strong>{{ key.translation }}: </strong>{{ content[key.name] }}</p>
+							}
+						}
+					</mat-card-content>
+					<mat-card-actions class=" d-flex justify-content-end">
+						<button mat-flat-button color="primary" (click)="onCardClicked(content)">Bearbeiten</button>
+					</mat-card-actions>
+				</mat-card>
+			</div>
+		}
+	</div>
+	<div class="has-text-centered row">
+		<div class="col">
+			<span><strong>Von: {{ data().totalElements }}</strong></span>
+		</div>
+		<div class="col-auto ml-auto">
+			<pagination-controls
+					[responsive]="true"
+					[nextLabel]="''"
+					[previousLabel]="''"
+					[autoHide]="true"
+					(pageChange)="changePage($event -1)"></pagination-controls>
+		</div>
+	
+	
+	</div>
+} @else {
+	<div class="has-text-centered d-flex justify-content-center text-center">
+		<h3 class="title">Kein Inhalt</h3>
+	</div>
+}

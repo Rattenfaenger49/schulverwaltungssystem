@@ -1,0 +1,152 @@
+<div class="row">
+	<div class="col-auto">
+		<h2>Rechnung Übersicht</h2>
+	</div>
+	<div class="col-auto">
+		<ys-upload-file
+				(fileUploaded)="onFileUploaded($event)"
+				[fileTypes]="['pdf', 'doc', 'docx', 'png', 'jpg', 'jpeg']"
+				[metadata]="metadata()"
+		></ys-upload-file>
+	</div>
+</div>
+
+
+@if (!auth.isStudent()) {
+	<form [formGroup]="form">
+		<div class="row">
+			<div class=" col-sm-6 col-md-3">
+				<!--TODO implement a better input for year and month-->
+				<mat-form-field appearance="outline"  class="w-100">
+					<mat-label>Month and Year</mat-label>
+					<input matInput [matDatepicker]="dp" formControlName="date">
+					<mat-hint>MM/YYYY</mat-hint>
+					<mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+					<mat-datepicker #dp
+									startView="multi-year"
+									(monthSelected)="setMonthAndYear($event, dp)">
+					</mat-datepicker>
+				</mat-form-field>
+			</div>
+			<div class="col-sm-6 col-md-2">
+				<mat-form-field appearance="outline" class="w-100">
+					<mat-label>UST</mat-label>
+					<mat-select
+							id="tax"
+							FormError
+							formControlName="tax"
+					>
+						<mat-option value="false">Nein</mat-option>
+						<mat-option value="true">Ja</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			<div class="col-sm-6 col-md-2">
+				<mat-form-field appearance="outline" class="w-100">
+					<mat-label>Rechnung speichern?</mat-label>
+					<mat-select
+							id="saveInvoice"
+							FormError
+							formControlName="saveInvoice"
+					>
+						<mat-option value="false">Nein</mat-option>
+						<mat-option value="true">Ja</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			@if (userType() == 'student') {
+				<div class="col-sm-6 col-md-2">
+					<mat-form-field appearance="outline" class="w-100">
+						<mat-label>Vertrag</mat-label>
+						<mat-select
+								id="contractId"
+								FormError
+								formControlName="contractId"
+						>@for (contract of getStudent().contracts; track contract) {
+							<mat-option [value]="contract.id"> {{ contract.contractType }}({{ contract.contractNumber }}
+								)
+							</mat-option>
+						}
+						</mat-select>
+					</mat-form-field>
+				</div>
+			}
+			<div class="col-sm-6 col-md-3">
+				<button (click)="createInvoice()"
+						color="primary" extended mat-fab>
+					<span class="material-symbols-outlined">new_window</span>
+					<span class="btn-text">Erstellen</span>
+				</button>
+			</div>
+		
+		</div>
+	
+	
+	</form>
+	
+}
+<hr class="my-2"/>
+
+@if (invoices().length > 0) {
+	<div class="uploaded-files mt-2">
+		<h2>Rechnungen</h2>
+		<table class="table">
+			<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Rechnungsnummer</th>
+				<th scope="col" class="d-none d-sm-table-cell">Gesamtsumme</th>
+				<th scope="col">Status</th>
+				<th scope="col">Schritt</th>
+				<th scope="col">View</th>
+				<th scope="col">Aktionen</th>
+			</tr>
+			</thead>
+			@for (invoice of invoices(); let index = $index; track invoice.id) {
+				
+				<tbody>
+				<tr>
+					<th>{{ index + 1 }}</th>
+					<td>{{ invoice.invoiceNumber }}</td>
+					<td class="d-none d-sm-table-cell">{{ invoice.totalAmount }}</td>
+					<td [innerHTML]="invoice.invoiceStatus | invoiceStatus"></td>
+					<td>
+						<ys-invoice-step [invoice]="invoice"></ys-invoice-step>
+					</td>
+					<td >
+						<mat-icon
+								(click)="onViewPdf(invoice)"
+								class="ok-icon mx-2 overflow-visible"
+								tooltip="öffne PDF">pageview</mat-icon>
+					</td>
+					
+					<td>
+						<mat-icon
+								(click)="onDownloadFile(invoice)"
+								class="ok-icon mx-2 overflow-visible"
+								tooltip="lade die Datei herunter"
+						>cloud_download
+						</mat-icon>
+						@if (auth.isAdmin) {
+							<mat-icon
+									class="mx-2 cancel-icon overflow-visible"
+									tooltip="löschen"
+									(click)="odDeleteFile(invoice)">
+								delete
+							</mat-icon>
+						}
+					
+					</td>
+				
+				
+				</tr>
+				</tbody>
+				
+			}
+		</table>
+	</div>
+} @else {
+	<div>
+		<h4>Keine Rechnungen gefunden!</h4>
+	</div>
+}

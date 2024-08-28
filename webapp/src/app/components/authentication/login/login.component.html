@@ -1,0 +1,95 @@
+<div class="col-md-12">
+	<div class="card card-container">
+		<img
+				alt="profile"
+				class="profile-img-card mb-4"
+				id="profile-img"
+				src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+		/>
+		<form (ngSubmit)="login()" [formGroup]="form">
+			<div class="input-group form-floating mb-3">
+				<input
+						FormError
+						class="form-control"
+						formControlName="schoolId"
+						id="schoolId"
+						name="schoolId"
+						placeholder=""
+						required
+						type="text">
+				<label for="schoolId">Schulkennung</label>
+				<div class="input-group-append align-content-center">
+					<mat-icon (click)="changeSchoolId()" class="pointer-cursor">refresh</mat-icon>
+				</div>
+			
+			</div>
+			<div class="form-floating mb-3">
+				<input
+						FormError
+						autocomplete="on"
+						class="form-control"
+						formControlName="username"
+						id="username"
+						name="username"
+						placeholder=""
+						required
+						type="email">
+				<label for="username">Benutzername</label>
+			
+			</div>
+			<div class="mb-3">
+				<div class="input-group form-floating">
+					<input
+							FormError
+							[type]="passowrdType"
+							autocomplete="current-password"
+							class="form-control"
+							formControlName="password"
+							id="password"
+							name="password"
+							placeholder="">
+					<label for="password">Password</label>
+					<div class="input-group-append align-content-center">
+						<button
+								(click)="togglePasswordVisibility()"
+								class="btn btn-outline-secondary border-0"
+								type="button"
+						>
+							@if (passowrdType === "password") {
+								<mat-icon>visibility_off</mat-icon>
+							} @else {
+								<mat-icon>visibility</mat-icon>
+							}
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-floating mb-3 pt-3 d-flex justify-content-between align-content-center align-items-center">
+				@if (auth.isLoggedOut()) {
+					<a routerLink="/reset-password"
+					   class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+						Passwort vergessen?
+					</a>
+					<button mat-flat-button color="primary" type="submit" class="btn btn-primary btn-block mt-2"
+							[disabled]="unlockTime() !== 0">
+						Login
+					</button>
+					
+				}
+			</div>
+			<div class="form-floating mb-3 pt-3">
+				@if (isLoginFailed) {
+					@if (unlockTime() == 0) {
+						<div class="alert alert-danger" role="alert">
+							Login failed: {{ errorMessage }}
+						</div>
+					} @else {
+						<div class="alert alert-danger" role="alert">
+							Versuchen Sie nochman in: {{ unlockTime() | countdown }}
+						</div>
+					}
+				}
+			</div>
+		</form>
+	</div>
+</div>

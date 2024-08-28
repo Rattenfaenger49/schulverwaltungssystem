@@ -1,0 +1,81 @@
+<div [formGroup]="form" class="row gx-1">
+	@if (schowTitle()) {
+		<h2>Adresse</h2>
+	}
+	<div class="form-floating mb-2 col-md-8 ">
+		<input (blur)="onTouched()"
+			   FormError
+			   [required]="required()"
+			   autocomplete="address-line1"
+			   class="form-control"
+			   formControlName="street"
+			   id="street"
+			   name="street"
+			   placeholder=""
+			   type="text">
+		<label class="left" for="street">Straße</label>
+	</div>
+	<div class="form-floating mb-2 col-md-4 ">
+		
+		<input (blur)="onTouched()" FormError
+			   [required]="required()"
+			   autocomplete="address-line2"
+			   class="form-control"
+			   formControlName="streetNumber"
+			   id="streetNumber"
+			   placeholder=""
+			   type="text">
+		<label class="left" for="streetNumber">Hausnummer</label>
+	
+	</div>
+	<div class="form-floating mb-2 col-md-6 col-lg-4 ">
+		<input (blur)="onTouched()" FormError
+			   [required]="required()"
+			   autocomplete="address-level2"
+			   class="form-control"
+			   formControlName="city"
+			   id="city"
+			   name="city"
+			   placeholder=""
+			   type="text">
+		<label class="left" for="city">Stadt</label>
+	</div>
+	<div class=" form-floating mb-2 col-md-6 col-lg-4 ">
+		<input (blur)="onTouched()"
+			   FormError
+			   autocomplete="postal-code"
+			   class="form-control"
+			   formControlName="postal"
+			   id="postal-code"
+			   name="postal-code"
+			   placeholder=""
+			   type="text">
+		<label class="" for="postal-code">PLZ</label>
+	</div>
+	<div class="form-floating mb-2 col-md-6 col-lg-4 ">
+		<input (blur)="onTouched()"
+			   FormError
+			   [required]="required()"
+			   autocomplete="country"
+			   class="form-control"
+			   formControlName="country"
+			   id="country"
+			   name="country"
+			   placeholder=""
+			   type="text">
+		<label class="left" for="country">Land</label>
+	</div>
+	<div class="form-floating mb-2 col-md-6 col-lg-4 ">
+		<input (blur)="onTouched()"
+			   FormError
+			   [required]="required()"
+			   autocomplete="address-level1"
+			   class="form-control"
+			   formControlName="state"
+			   id="state"
+			   placeholder=""
+			   type="text">
+		<label class="left" for="state">Bundesland</label>
+	</div>
+
+</div>

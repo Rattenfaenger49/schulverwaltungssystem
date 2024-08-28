@@ -1,0 +1,49 @@
+@if (data()) {
+  <div  class="table-responsive" style="max-height: 600px;overflow-x: auto;">
+    <table  class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          @for (header of getHeadersTranslated(); track header) {
+            <th>{{header}}</th>
+          }
+            <th >Bearbeiten</th>
+        </tr>
+      </thead>
+      @if (data()) {
+        <tbody>
+          @for (content of data(); track content; let i = $index) {
+            <tr >
+              <td>{{ (i+1)}}</td>
+              @for (header of getHeaders(); track header) {
+                @if ( header === 'students') {
+                  <td>
+                    @for (user of splitContent(content[header]) |renderContent; track user) {
+                      <p class="mt-0 mb-0">{{ user }}</p>
+                    }
+                  </td>
+                } @else if (header === 'student'){
+                    <td> {{ content[header].firstName }} {{ content[header].lastName }} </td>
+                }
+                @else {
+                  <td>{{ content[header] }}</td>
+                }
+              }
+                <td >
+                    <a class="pointer-cursor" mat-list-item (click)="onRowClicked(content)"  >
+                        <mat-icon >edit</mat-icon>
+                    </a>
+                </td>
+            </tr>
+          }
+        </tbody>
+      }
+    </table>
+  </div>
+} @else {
+  <div class="has-text-centered d-flex justify-content-center text-center">
+    <h3 class="title">Kein Inhalt</h3>
+  </div>
+}
+
+
